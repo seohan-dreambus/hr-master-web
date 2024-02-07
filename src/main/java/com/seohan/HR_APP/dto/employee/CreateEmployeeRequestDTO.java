@@ -1,5 +1,6 @@
 package com.seohan.HR_APP.dto.employee;
 
+import com.seohan.HR_APP.domain.Department;
 import com.seohan.HR_APP.domain.Employee;
 import com.seohan.HR_APP.domain.enumType.ResignationType;
 import jakarta.validation.constraints.NotBlank;
@@ -87,17 +88,17 @@ public class CreateEmployeeRequestDTO {
     private String internalEmail;// 사내메일
 
     @NotBlank
-    private String isHighPerformance;// 고과여부
+    private Boolean isHighPerformance;// 고과여부
 
     @NotBlank
-    private String isUnionMember;// 조합원 여부
+    private Boolean isUnionMember;// 조합원 여부
 
     @NotBlank
-    private String isOverseasAssignment;// 해외파견 여부
+    private Boolean isOverseasAssignment;// 해외파견 여부
 
     private String shift;// 근무조
 
-    public Employee toEntity() {
+    public Employee toEntity(Department department) {
         return Employee.builder()
                 .password(password)
                 .name(name)
@@ -119,7 +120,6 @@ public class CreateEmployeeRequestDTO {
                 .resignationAmount(resignationAmount)
                 .workLocation(workLocation)
                 .jobCategory(jobCategory)
-                .department(department)
                 .position(position)
                 .positionLank(positionLank)
                 .internalPhone(internalPhone)

@@ -9,6 +9,7 @@ import com.seohan.HR_APP.dto.employee.UpdateEmployeeRequestDTO;
 import com.seohan.HR_APP.service.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class EmployeeController {
@@ -56,13 +58,14 @@ public class EmployeeController {
     @GetMapping("/api/employees/{companyId}")
     public ResponseDTO<?> getEmployeeInfo(@PathVariable String companyId){
 
+        log.info(companyId);
         final Employee findEmployee = employeeService.getEmployeeById(companyId);
         return new ResponseDTO<>(new ReadEmployeeResponseDTO(findEmployee), "사원 조회 성공");
     }
 
     //사원 목록 조회(검색)
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/api/employees/{search}")
+    @GetMapping("/api/employees/search/{search}")
     public ResponseDTO<?> getEmployeeList(
             @PathVariable String search,
             @RequestBody @Valid final ReadEmployeeListRequestDTO requestDTO){

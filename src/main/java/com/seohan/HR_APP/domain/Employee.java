@@ -104,7 +104,9 @@ public class Employee {
     private String jobCategory;// 직군
 
     @NotNull
-    private String department;// 부서
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_change_id")
+    private Department department;// 부서
 
     @NotNull
     private String position;// 직책
@@ -121,15 +123,15 @@ public class Employee {
 
     @NotNull
     @Column(name = "is_high_performance")
-    private String isHighPerformance;// 고과여부
+    private Boolean isHighPerformance;// 고과여부
 
     @NotNull
     @Column(name = "is_union_member")
-    private String isUnionMember;// 조합원 여부
+    private Boolean isUnionMember;// 조합원 여부
 
     @NotNull
     @Column(name = "is_overseas_assignment")
-    private String isOverseasAssignment;// 해외파견 여부
+    private Boolean isOverseasAssignment;// 해외파견 여부
 
     private String shift;// 근무조
 
@@ -139,11 +141,13 @@ public class Employee {
 
     //생성자
     @Builder
-    public Employee(String password, String name, String englishName, String personalNumber, String phoneNumber, String homePhoneNumber, Boolean isMilitary, String nationality, Boolean isMartial, Date weddingDay, String homeAddress, String detailAddress, String employmentType, Date joiningDate, ResignationType resignationType, Date resignationDate, String resignationReason, String resignationAmount, String workLocation, String jobCategory, String department, String position, String positionLank, String internalPhone, String internalEmail, String isHighPerformance, String isUnionMember, String isOverseasAssignment, String shift) {
+    public Employee(Department department, String password, String name, String englishName, String personalNumber, String phoneNumber, String homePhoneNumber, Boolean isMilitary, String nationality, Boolean isMartial, Date weddingDay, String homeAddress, String detailAddress, String employmentType, Date joiningDate, ResignationType resignationType, Date resignationDate, String resignationReason, String resignationAmount, String workLocation, String jobCategory, String position, String positionLank, String internalPhone, String internalEmail, Boolean isHighPerformance, Boolean isUnionMember, Boolean isOverseasAssignment, String shift) {
         this.companyId = createCompanyId();
         this.userAuthority = UserAuthority.ADMIN;
+        setDepartment(department);
 
         this.name = name;
+        this.password = password;
         this.englishName = englishName;
         this.personalNumber = personalNumber;
         this.phoneNumber = phoneNumber;
@@ -162,7 +166,6 @@ public class Employee {
         this.resignationAmount = resignationAmount;
         this.workLocation = workLocation;
         this.jobCategory = jobCategory;
-        this.department = department;
         this.position = position;
         this.positionLank = positionLank;
         this.internalPhone = internalPhone;
@@ -180,9 +183,14 @@ public class Employee {
         String formattedMonth = String.format("%02d", currentDate.getMonthValue());
 
         // 결과 문자열 생성
-        String result = formattedYear + formattedMonth;
+        String randomStr = java.util.UUID.randomUUID().toString().substring(0,4);
+        String result = formattedYear + formattedMonth + randomStr;
 
         return result;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
 
