@@ -102,7 +102,7 @@
         "
       >
       <script>
-       // '저장' 버튼을 클릭했을 때 실행되는 함수
+       // '등록' 버튼을 클릭했을 때 실행되는 함수
        function saveEmployeeData() {
        // 각 입력 필드에서 값 수집
         const employeeData = {
@@ -168,11 +168,9 @@
       </nav>
 
         <div>
-          <button type="button" class="btn btn-outline-warning">수정</button>
-          <button type="button" class="btn btn-outline-primary">등록</button>
-          </button>     
-      
-            <!-- Team member info rows will go here -->
+          <button type="button" class="btn btn-outline-primary" onclick="saveEmployeeData()">등록</button>
+
+        
           </div>
         </div>
         <hr />
@@ -298,11 +296,17 @@
       </div>
       <div class="info-section">
         <label for="isMilitary" class="info-title">군필여부</label>
-        <input type="text" id="isMilitary"class="info-content form-control"  value="">
+        <select id="isMilitary" class="info-content form-control">
+          <option value="true">해당</option>
+          <option value="false">미해당</option>
+        </select>
       </div>
       <div class="info-section">
         <label for="isMartial" class="info-title">결혼유무</label>
-        <input type="text" id="isMartial"class="info-content form-control"  value="">
+        <select id="isMartial" class="info-content form-control">
+          <option value="true">해당</option>
+          <option value="false">미해당</option>
+        </select>
       </div>
       <div class="info-section">
         <label for="weddingDay" class="info-title">결혼기념일</label>
