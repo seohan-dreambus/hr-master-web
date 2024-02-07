@@ -20,7 +20,6 @@ public class Department {
     private Long departmentChangeId; //auto import 아님,
     //바뀐날짜+채번
 
-    @Id
     @Column(name = "department_code")
     private String departmentCode; // 부서 코드
 

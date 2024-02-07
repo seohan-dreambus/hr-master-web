@@ -1,5 +1,6 @@
 package com.seohan.HR_APP.dto.employee;
 
+import com.seohan.HR_APP.domain.Employee;
 import com.seohan.HR_APP.domain.enumType.ResignationType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
@@ -95,4 +96,38 @@ public class CreateEmployeeRequestDTO {
     private String isOverseasAssignment;// 해외파견 여부
 
     private String shift;// 근무조
+
+    public Employee toEntity() {
+        return Employee.builder()
+                .password(password)
+                .name(name)
+                .englishName(englishName)
+                .personalNumber(personalNumber)
+                .phoneNumber(phoneNumber)
+                .homePhoneNumber(homePhoneNumber)
+                .isMilitary(isMilitary)
+                .nationality(nationality)
+                .isMartial(isMartial)
+                .weddingDay(weddingDay)
+                .homeAddress(homeAddress)
+                .detailAddress(detailAddress)
+                .employmentType(employmentType)
+                .joiningDate(joiningDate)
+                .resignationType(resignationType)
+                .resignationDate(resignationDate)
+                .resignationReason(resignationReason)
+                .resignationAmount(resignationAmount)
+                .workLocation(workLocation)
+                .jobCategory(jobCategory)
+                .department(department)
+                .position(position)
+                .positionLank(positionLank)
+                .internalPhone(internalPhone)
+                .internalEmail(internalEmail)
+                .isHighPerformance(isHighPerformance)
+                .isUnionMember(isUnionMember)
+                .isOverseasAssignment(isOverseasAssignment)
+                .shift(shift)
+                .build();
+    }
 }

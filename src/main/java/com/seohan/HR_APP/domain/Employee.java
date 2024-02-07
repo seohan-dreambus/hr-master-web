@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -21,7 +22,7 @@ public class Employee {
 
     @Id
     @Column(name = "company_id")
-    private Long companyId; //auto import 아님
+    private String companyId; //auto import 아님
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "user_authority")
@@ -137,6 +138,53 @@ public class Employee {
     }
 
     //생성자
+    @Builder
+    public Employee(String password, String name, String englishName, String personalNumber, String phoneNumber, String homePhoneNumber, Boolean isMilitary, String nationality, Boolean isMartial, Date weddingDay, String homeAddress, String detailAddress, String employmentType, Date joiningDate, ResignationType resignationType, Date resignationDate, String resignationReason, String resignationAmount, String workLocation, String jobCategory, String department, String position, String positionLank, String internalPhone, String internalEmail, String isHighPerformance, String isUnionMember, String isOverseasAssignment, String shift) {
+        this.companyId = createCompanyId();
+        this.userAuthority = UserAuthority.ADMIN;
+
+        this.name = name;
+        this.englishName = englishName;
+        this.personalNumber = personalNumber;
+        this.phoneNumber = phoneNumber;
+        this.homePhoneNumber = homePhoneNumber;
+        this.isMilitary = isMilitary;
+        this.nationality = nationality;
+        this.isMartial = isMartial;
+        this.weddingDay = weddingDay;
+        this.homeAddress = homeAddress;
+        this.detailAddress = detailAddress;
+        this.employmentType = employmentType;
+        this.joiningDate = joiningDate;
+        this.resignationType = resignationType;
+        this.resignationDate = resignationDate;
+        this.resignationReason = resignationReason;
+        this.resignationAmount = resignationAmount;
+        this.workLocation = workLocation;
+        this.jobCategory = jobCategory;
+        this.department = department;
+        this.position = position;
+        this.positionLank = positionLank;
+        this.internalPhone = internalPhone;
+        this.internalEmail = internalEmail;
+        this.isHighPerformance = isHighPerformance;
+        this.isUnionMember = isUnionMember;
+        this.isOverseasAssignment = isOverseasAssignment;
+        this.shift = shift;
+    }
+
+    private String createCompanyId() {
+        //년도월+채번 24021, 24022, 24023
+        LocalDate currentDate = LocalDate.now();
+        String formattedYear = String.format("%02d", currentDate.getYear() % 100);
+        String formattedMonth = String.format("%02d", currentDate.getMonthValue());
+
+        // 결과 문자열 생성
+        String result = formattedYear + formattedMonth;
+
+        return result;
+    }
+
 
     //==수정 메서드==//
 
