@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hr_db?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: create # ??? ?? ??, update? ?? ????? db ?? ????
+    properties:
+      hibernate:
+        show_sql: true  #????? ??? ???(??? ????)
+        format_sql: true
+
+  messages:
+    basename: errors
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+logging.level:
+  org.hibernate.SQL: debug
+#  org.hibernate.type: trace #???? ????? ? ? ?? ??
+
+custom:
+  path:
+    file-dir: C:\Users\uzeeni\Desktop\dreambus\image_file

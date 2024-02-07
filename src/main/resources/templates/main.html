@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>인사마스터</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      /* 토글 버튼 글자와 배경색 변경 */
+      .card-header .btn-link {
+        color: black; /* 글자 색상을 검정으로 변경 */
+      }
+      .card-header,
+      .card-body {
+        background-color: white; /* 배경 색상을 흰색으로 변경 */
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div style="text-align: center; font-size: 24px; margin-top: 20px">
+        인사마스터
+      </div>
+      <hr />
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 20px;
+        "
+      >
+        <div style="flex-grow: 1">
+          <input type="text" placeholder="사번" style="margin-right: 10px" />
+          <input type="text" placeholder="이름" />
+          <button>검색</button>
+        </div>
+        <div>
+          <button>저장</button>
+          <button>사번부여</button>
+          <button>초기화</button>
+        </div>
+      </div>
+      <hr />
+      <div style="display: flex; margin-top: 20px">
+        <div style="flex-basis: 25%; flex-grow: 0; padding-right: 20px">
+          <!-- Bootstrap Collapse for Navigation Section -->
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button
+                    class="btn btn-link"
+                    data-toggle="collapse"
+                    data-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                  >
+                    기획본부
+                  </button>
+                </h5>
+              </div>
+              <div
+                id="collapseOne"
+                class="collapse"
+                aria-labelledby="headingOne"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <!-- 기획조정부 추가 토글 -->
+                  <div class="card">
+                    <div class="card-header" id="headingOneSub">
+                      <h5 class="mb-0">
+                        <button
+                          class="btn btn-link"
+                          data-toggle="collapse"
+                          data-target="#collapseOneSub"
+                          aria-expanded="false"
+                          aria-controls="collapseOneSub"
+                        >
+                          기획조정부
+                        </button>
+                      </h5>
+                    </div>
+                    <div
+                      id="collapseOneSub"
+                      class="collapse"
+                      aria-labelledby="headingOneSub"
+                      data-parent="#collapseOne"
+                    >
+                      <div class="card-body">
+                        <div>법무팀</div>
+                        <div>홍보팀</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>미래전략실</div>
+                  <div>사업기획팀</div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button
+                    class="btn btn-link collapsed"
+                    data-toggle="collapse"
+                    data-target="#collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="collapseTwo"
+                  >
+                    서한이노빌리티
+                  </button>
+                </h5>
+              </div>
+              <div
+                id="collapseTwo"
+                class="collapse"
+                aria-labelledby="headingTwo"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <!-- 제조혁신부 추가 토글 -->
+                  <div class="card">
+                    <div class="card-header" id="headingTwoSub">
+                      <h5 class="mb-0">
+                        <button
+                          class="btn btn-link"
+                          data-toggle="collapse"
+                          data-target="#collapseTwoSub"
+                          aria-expanded="false"
+                          aria-controls="collapseTwoSub"
+                        >
+                          제조혁신부
+                        </button>
+                      </h5>
+                    </div>
+                    <div
+                      id="collapseTwoSub"
+                      class="collapse"
+                      aria-labelledby="headingTwoSub"
+                      data-parent="#collapseTwo"
+                    >
+                      <div class="card-body">
+                        <div>제조1팀</div>
+                        <div>제조2팀</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+          <div style="margin-top: 20px">
+            <div
+              style="
+                font-weight: bold;
+                display: flex;
+                justify-content: space-between;
+              "
+            >
+              <span>부서</span>
+              <span>직급</span>
+              <span>사번</span>
+              <span>성명</span>
+            </div>
+            <!-- Team member info rows will go here -->
+          </div>
+        </div>
+        <div
+          style="
+            flex-basis: 75%;
+            flex-grow: 0;
+            border-left: 1px solid #ccc;
+            padding-left: 20px;
+          "
+        >
+        <div class="row">
+          <div class="col-md-4">
+            <div class="info-section">
+              <div class="info-title">성명</div>
+              <div class="info-content"><!-- Name --></div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">사번</div>
+              <div class="info-content"><!-- Employee Number --></div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">직군/부서</div>
+              <div class="info-content"><!-- Division/Department --></div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">직급</div>
+              <div class="info-content"><!-- Rank --></div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">직책</div>
+              <div class="info-content"><!-- Position --></div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="info-section">
+              <div class="info-title">사내전화</div>
+              <div class="info-content"><!-- Company Phone --></div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">사내메일</div>
+              <div class="info-content"><!-- Company Email --></div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">휴대전화</div>
+              <div class="info-content"><!-- Mobile --></div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">근무지</div>
+              <div class="info-content"><!-- Work Location --></div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">근무조</div>
+              <div class="info-content"><!-- Work Shift --></div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="info-section">
+              <div class="info-title">입사 일자</div>
+              <div class="info-content"><!-- Date of Joining --></div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">퇴사 구분</div>
+              <div class="info-content"><!-- Type of Resignation --></div>
+            </div>
+            <div class="info-section">
+              <div class="info-title">퇴사 일자</div>
+              <div class="info-content"><!-- Date of Resignation --></div>
+            </div>
+          </div>
+        </div>
+
+          <hr />
+          <button type="button" class="btn btn-outline-secondary" disabled>
+            기본인적사항
+          </button>
+          <button type="button" class="btn btn-outline-secondary" disabled>
+            회사근무사항
+          </button>
+          <button type="button" class="btn btn-outline-secondary" disabled>
+            사내정보
+          </button>
+          <button type="button" class="btn btn-outline-secondary" disabled>
+            교육훈련
+          </button>
+          <button type="button" class="btn btn-outline-secondary" disabled>
+            상벌사항
+          </button>
+          <button type="button" class="btn btn-outline-secondary" disabled>
+            부서변경이력
+          </button>
+          <hr />
+           <div class="row">
+    <div class="col-md-4">
+      <div class="info-section">
+        <div class="info-title">영문이름</div>
+        <div class="info-content"><!-- English Name --></div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">주민번호</div>
+        <div class="info-content"><!-- SSN --></div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">실거주지 주소</div>
+        <div class="info-content"><!-- Actual Address --></div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">상세주소</div>
+        <div class="info-content"><!-- Detailed Address --></div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="info-section">
+        <div class="info-title">비상연락망</div>
+        <div class="info-content"><!-- Emergency Contact --></div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">군필여부</div>
+        <div class="info-content"><!-- Military Service --></div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">결혼유무</div>
+        <div class="info-content"><!-- Marital Status --></div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">결혼기념일</div>
+        <div class="info-content"><!-- Marriage Anniversary --></div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="info-section">
+        <div class="info-title">최종학력</div>
+        <div class="info-content"><!-- Final Education --></div>
+      </div>
+    </div>
+  </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
