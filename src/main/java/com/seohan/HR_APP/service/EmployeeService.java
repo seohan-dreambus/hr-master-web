@@ -1,11 +1,15 @@
 package com.seohan.HR_APP.service;
 
+import com.seohan.HR_APP.domain.Department;
 import com.seohan.HR_APP.domain.Employee;
 import com.seohan.HR_APP.dto.employee.CreateEmployeeRequestDTO;
 import com.seohan.HR_APP.dto.employee.UpdateEmployeeRequestDTO;
+import com.seohan.HR_APP.repository.DepartmentRepository;
 import com.seohan.HR_APP.repository.EmployeeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,24 +19,40 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class EmployeeService {
 
-//    private final EmployeeRepository repo;
+    private final EmployeeRepository repo;
+    private final DepartmentRepository departmentRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Employee create(CreateEmployeeRequestDTO requestDTO) {
-        return null;
+        //부서 세팅
+        Department department = departmentRepo.findByDepartmentName(requestDTO.getDepartment())
+                .orElseThrow(() -> new EntityNotFoundException());
+        Employee employee = requestDTO.toEntity(department);
+
+        //TODO 사번 생성
+        employee.encodePassword(passwordEncoder);
+        return repo.save(employee);
     }
 
-    public Employee getEmployeeById(Long id) {
-        return null;
+    public Employee getEmployeeById(String companyId) {
+        return repo.findByCompanyId(companyId)
+                .orElseThrow(() -> new EntityNotFoundException());
     }
 
     @Transactional
-    public void changeToResignation(Employee findEmployee) {
-        return;
+    public void delete(Employee findEmployee) {
+        repo.delete(findEmployee);
     }
 
     @Transactional
-    public Employee update(Long id, UpdateEmployeeRequestDTO requestDTO) {
-        return null;
+    public Employee update(String companyId, UpdateEmployeeRequestDTO requestDTO) {
+        Employee employee = repo.findByCompanyId(companyId)
+                .orElseThrow(() -> new EntityNotFoundException());
+
+        //employee 수정
+        //TODO
+
+        return employee;
     }
 }

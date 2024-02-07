@@ -6,7 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.usertype.UserType;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Entity
@@ -17,10 +20,9 @@ public class Department {
 
     @Id
     @Column(name = "department_change_id")
-    private Long departmentChangeId; //auto import 아님,
+    private String departmentChangeId; //auto import 아닌데 임시로일단
     //바뀐날짜+채번
 
-    @Id
     @Column(name = "department_code")
     private String departmentCode; // 부서 코드
 
@@ -39,7 +41,7 @@ public class Department {
     @Column(name = "is_leaf_node")
     private String isLeafNode; // 상위부서 코드
     @Builder
-    public Department(Long departmentChangeId, String departmentCode, String departmentName, String departmentEnglishName, Date changeDate, String upperDepartmentCode, String isLeafNode) {
+    public Department(String departmentChangeId, String departmentCode, String departmentName, String departmentEnglishName, Date changeDate, String upperDepartmentCode, String isLeafNode) {
         this.departmentChangeId = departmentChangeId;
         this.departmentCode = departmentCode;
         this.departmentName = departmentName;

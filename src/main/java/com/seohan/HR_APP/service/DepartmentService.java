@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class DepartmentService {
 
-//    private final DepartmentRepository repo;
+    private final DepartmentRepository repo;
 
     public Department getRootList() {
         return null;

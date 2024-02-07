@@ -9,6 +9,7 @@ import com.seohan.HR_APP.dto.employee.UpdateEmployeeRequestDTO;
 import com.seohan.HR_APP.service.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class EmployeeController {
@@ -26,7 +28,7 @@ public class EmployeeController {
     public ResponseEntity<?> createEmployee(@RequestBody @Valid final CreateEmployeeRequestDTO requestDTO, UriComponentsBuilder uriBuilder){
 
         final Employee createdEmployee = employeeService.create(requestDTO);
-        URI location = uriBuilder.path("/user/{id}")
+        URI location = uriBuilder.path("/api/employees/{companyId}")
                 .buildAndExpand(createdEmployee.getCompanyId()).toUri();
 
         return ResponseEntity.created(location)
@@ -34,36 +36,37 @@ public class EmployeeController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/api/employees/{id}")
-    public ResponseDTO<?> deleteEmployee(@PathVariable Long id){
+    @DeleteMapping("/api/employees/{companyId}")
+    public ResponseDTO<?> deleteEmployee(@PathVariable String companyId){
 
-        Employee findEmployee = employeeService.getEmployeeById(id);
-        employeeService.changeToResignation(findEmployee);
-        return new ResponseDTO<>(null, "사원 퇴사처리 성공");
+        Employee findEmployee = employeeService.getEmployeeById(companyId);
+        employeeService.delete(findEmployee);
+        return new ResponseDTO<>(null, "사원 삭제 성공");
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/api/employees/{id}")
-    public ResponseDTO<ReadEmployeeResponseDTO> modifyUser(
-            @PathVariable Long id,
+    @PutMapping("/api/employees/{companyId}")
+    public ResponseDTO<ReadEmployeeResponseDTO> modifyEmployee(
+            @PathVariable String companyId,
             @RequestBody @Valid final UpdateEmployeeRequestDTO requestDTO){
 
-        final Employee updatedEmployee = employeeService.update(id, requestDTO);
+        final Employee updatedEmployee = employeeService.update(companyId, requestDTO);
         return new ResponseDTO<>(new ReadEmployeeResponseDTO(updatedEmployee), "정상 수정 처리 되었습니다.");
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/api/employees/{id}")
-    public ResponseDTO<?> getUserInfo(@PathVariable Long id){
+    @GetMapping("/api/employees/{companyId}")
+    public ResponseDTO<?> getEmployeeInfo(@PathVariable String companyId){
 
-        final Employee findEmployee = employeeService.getEmployeeById(id);
+        log.info(companyId);
+        final Employee findEmployee = employeeService.getEmployeeById(companyId);
         return new ResponseDTO<>(new ReadEmployeeResponseDTO(findEmployee), "사원 조회 성공");
     }
 
     //사원 목록 조회(검색)
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/api/employees/{search}")
-    public ResponseDTO<?> getUserList(
+    @GetMapping("/api/employees/search/{search}")
+    public ResponseDTO<?> getEmployeeList(
             @PathVariable String search,
             @RequestBody @Valid final ReadEmployeeListRequestDTO requestDTO){
         //TODO

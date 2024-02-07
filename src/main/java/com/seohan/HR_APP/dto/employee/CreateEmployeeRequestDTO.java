@@ -1,5 +1,7 @@
 package com.seohan.HR_APP.dto.employee;
 
+import com.seohan.HR_APP.domain.Department;
+import com.seohan.HR_APP.domain.Employee;
 import com.seohan.HR_APP.domain.enumType.ResignationType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
@@ -86,13 +88,46 @@ public class CreateEmployeeRequestDTO {
     private String internalEmail;// 사내메일
 
     @NotBlank
-    private String isHighPerformance;// 고과여부
+    private Boolean isHighPerformance;// 고과여부
 
     @NotBlank
-    private String isUnionMember;// 조합원 여부
+    private Boolean isUnionMember;// 조합원 여부
 
     @NotBlank
-    private String isOverseasAssignment;// 해외파견 여부
+    private Boolean isOverseasAssignment;// 해외파견 여부
 
     private String shift;// 근무조
+
+    public Employee toEntity(Department department) {
+        return Employee.builder()
+                .password(password)
+                .name(name)
+                .englishName(englishName)
+                .personalNumber(personalNumber)
+                .phoneNumber(phoneNumber)
+                .homePhoneNumber(homePhoneNumber)
+                .isMilitary(isMilitary)
+                .nationality(nationality)
+                .isMartial(isMartial)
+                .weddingDay(weddingDay)
+                .homeAddress(homeAddress)
+                .detailAddress(detailAddress)
+                .employmentType(employmentType)
+                .joiningDate(joiningDate)
+                .resignationType(resignationType)
+                .resignationDate(resignationDate)
+                .resignationReason(resignationReason)
+                .resignationAmount(resignationAmount)
+                .workLocation(workLocation)
+                .jobCategory(jobCategory)
+                .position(position)
+                .positionLank(positionLank)
+                .internalPhone(internalPhone)
+                .internalEmail(internalEmail)
+                .isHighPerformance(isHighPerformance)
+                .isUnionMember(isUnionMember)
+                .isOverseasAssignment(isOverseasAssignment)
+                .shift(shift)
+                .build();
+    }
 }

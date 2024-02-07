@@ -85,17 +85,47 @@ public class ReadEmployeeResponseDTO {
     private String internalEmail;// 사내메일
 
     @NotBlank
-    private String isHighPerformance;// 고과여부
+    private Boolean isHighPerformance;// 고과여부
 
     @NotBlank
-    private String isUnionMember;// 조합원 여부
+    private Boolean isUnionMember;// 조합원 여부
 
     @NotBlank
-    private String isOverseasAssignment;// 해외파견 여부
+    private Boolean isOverseasAssignment;// 해외파견 여부
 
     private String shift;// 근무조
 
     //TODO
     public ReadEmployeeResponseDTO(Employee findEmployee) {
+        this.password = findEmployee.getPassword();
+        this.name = findEmployee.getName();
+        this.englishName = findEmployee.getEnglishName();
+        this.personalNumber = findEmployee.getPersonalNumber();
+        this.phoneNumber = findEmployee.getPhoneNumber();
+        this.homePhoneNumber = findEmployee.getHomePhoneNumber();
+        this.isMilitary = findEmployee.getIsMilitary();
+        this.nationality = findEmployee.getNationality();
+        this.isMartial = findEmployee.getIsMartial();
+        this.weddingDay = findEmployee.getWeddingDay();
+        this.homeAddress = findEmployee.getHomeAddress();
+        this.detailAddress = findEmployee.getDetailAddress();
+        this.employmentType = findEmployee.getEmploymentType();
+        this.joiningDate = findEmployee.getJoiningDate();
+        this.resignationType = findEmployee.getResignationType();
+        this.resignationDate = findEmployee.getResignationDate();
+        this.resignationReason = findEmployee.getResignationReason();
+        this.resignationAmount = findEmployee.getResignationAmount();
+        this.workLocation = findEmployee.getWorkLocation();
+        this.jobCategory = findEmployee.getJobCategory();
+        this.position = findEmployee.getPosition();
+        this.positionLank = findEmployee.getPositionLank();
+        this.internalPhone = findEmployee.getInternalPhone();
+        this.internalEmail = findEmployee.getInternalEmail();
+        this.isHighPerformance = findEmployee.getIsHighPerformance();
+        this.isUnionMember = findEmployee.getIsUnionMember();
+        this.isOverseasAssignment = findEmployee.getIsOverseasAssignment();
+        this.shift = findEmployee.getShift();
+
+        //department에서 부서명은 또 따로 불러와야함
     }
 }
