@@ -1,5 +1,6 @@
 package com.seohan.HR_APP.dto.employee;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.seohan.HR_APP.domain.Employee;
 import com.seohan.HR_APP.domain.enumType.ResignationType;
 import jakarta.validation.constraints.NotBlank;
@@ -54,6 +55,7 @@ public class ReadEmployeeResponseDTO {
     private String employmentType;// 입사구분
 
     @NotBlank
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date joiningDate;// 입사 날짜
 
     @NotBlank
@@ -126,6 +128,7 @@ public class ReadEmployeeResponseDTO {
         this.isOverseasAssignment = findEmployee.getIsOverseasAssignment();
         this.shift = findEmployee.getShift();
 
-        //department에서 부서명은 또 따로 불러와야함
+        // 부서명 LAZY 로딩
+        this.department = findEmployee.getDepartment().getDepartmentName();
     }
 }
