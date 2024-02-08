@@ -101,61 +101,6 @@
           margin-top: 20px;
         "
       >
-      <script>
-       // '등록' 버튼을 클릭했을 때 실행되는 함수
-       function saveEmployeeData() {
-       // 각 입력 필드에서 값 수집
-        const employeeData = {
-        password: document.getElementById('password').value,
-        name: document.getElementById('name').value,
-        englishName: document.getElementById('englishName').value,
-        personalNumber: document.getElementById('personalNumber').value,
-        phoneNumber: document.getElementById('phoneNumber').value,
-        homePhoneNumber: document.getElementById('homePhoneNumber').value,
-        isMilitary: document.getElementById('isMilitary').value === 'true', // 'true' 문자열을 Boolean으로 변환
-        nationality: document.getElementById('nationality').value,
-        isMartial: document.getElementById('isMartial').value === 'true', // 'true' 문자열을 Boolean으로 변환
-        weddingDay: document.getElementById('weddingDay').value,
-        homeAddress: document.getElementById('homeAddress').value,
-        detailAddress: document.getElementById('detailAddress').value,
-        employmentType: document.getElementById('employmentType').value,
-        joiningDate: document.getElementById('joiningDate').value,
-        resignationType: document.getElementById('resignationType').value,
-        resignationDate: document.getElementById('resignationDate').value,
-        resignationReason: document.getElementById('resignationReason').value,
-        resignationAmount: document.getElementById('resignationAmount').value,
-        workLocation: document.getElementById('workLocation').value,
-        jobCategory: document.getElementById('jobCategory').value,
-        department: document.getElementById('department').value,
-        position: document.getElementById('position').value,
-        positionLank: document.getElementById('positionLank').value,
-        internalPhone: document.getElementById('internalPhone').value,
-        internalEmail: document.getElementById('internalEmail').value,
-        isHighPerformance: document.getElementById('isHighPerformance').value,
-        isUnionMember: document.getElementById('isUnionMember').value,
-        isOverseasAssignment: document.getElementById('isOverseasAssignment').value,
-        shift: document.getElementById('shift').value,
-        };
-
-        // AJAX 요청을 사용하여 서버로 데이터 전송
-        fetch('/api/employees', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(employeeData),
-        })
-        .then(response => response.json())
-        .then(data => {
-        console.log('Success:', data);
-        // 성공적으로 데이터를 전송한 후의 로직 작성
-        })
-       .catch((error) => {
-        console.error('Error:', error);
-        });
-        }
-      </script>
-      
       <nav class="navbar" style="background-color: white;">
         <div class="container-fluid">
           <form class="d-flex" role="search">
@@ -232,7 +177,7 @@
             <!-- 4열: 입사 일자, 퇴사 구분, 퇴사 일자 -->
             <div class="info-section">
               <label for="joiningDate" class="info-title">입사 일자</label>
-              <input type="text" id="joiningDate" class="info-content form-control" value="">
+              <input type="date" id="joiningDate" class="info-content form-control" value="">
             </div>
             <div class="info-section">
               <label for="resignationType" class="info-title">퇴사 구분</label>
@@ -240,7 +185,7 @@
             </div>
             <div class="info-section">
               <label for="resignationDate" class="info-title">퇴사 일자</label>
-              <input type="text" id="resignationDate" class="info-content form-control" value="">
+              <input type="date" id="resignationDate" class="info-content form-control" value="">
             </div>
           </div>
         </div>
@@ -310,7 +255,7 @@
       </div>
       <div class="info-section">
         <label for="weddingDay" class="info-title">결혼기념일</label>
-        <input type="text" id="weddingDay"class="info-content form-control"  value="">
+        <input type="date" id="weddingDay"class="info-content form-control"  value="">
       </div>
     </div>
     
@@ -329,21 +274,21 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
       function searchEmployee() {
-    const companyID = document.getElementById("companyIDInput").value;
+     const companyID = document.getElementById("companyIDInput").value;
 
-    fetch(`/api/employees/${companyID}`, {
+     fetch(`/api/employees/${companyID}`, {
         method: 'GET', // GET 요청은 body를 포함하지 않음
         headers: {
             'Accept': 'application/json', // 응답으로 JSON을 기대함을 명시
         }
-    })
-    .then(response => {
+     })
+     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         return response.json();
-    })
-    .then(data => {
+     })
+     .then(data => {
         // 응답 데이터를 입력 필드에 설정
         document.getElementById("name").value = data.name;
         document.getElementById("companyId").value = data.companyId; // 서버 응답에 따라 필드명을 확인하고 조정해야 할 수 있음
@@ -355,17 +300,70 @@
         document.getElementById("workLocation").value = data.workLocation;
         document.getElementById("internalEmail").value = data.internalEmail;
         document.getElementById("joiningDate").value = data.joiningDate ? data.joiningDate.split('T')[0] : ''; // 날짜 형식을 YYYY-MM-DD로 조정
+        document.getElementById("isMilitary").value = data.isMilitary.toString();
+        document.getElementById("isMartial").value = data.isMartial.toString();
         document.getElementById("resignationType").value = data.resignationType;
         document.getElementById("resignationDate").value = data.resignationDate ? data.resignationDate.split('T')[0] : ''; // 날짜 형식을 YYYY-MM-DD로 조정
         // 기본인적사항~상벌사항에 대한 데이터 표시 로직 추가 (필요에 따라)
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-    }
-      </script>
+     })
+      .catch(error => {
+     console.error('Error:', error);
+     alert('An error occurred while fetching the employee data');
+     });
+     }
+     // '등록' 버튼을 클릭했을 때 실행되는 함수
+     function saveEmployeeData() {
+       // 각 입력 필드에서 값 수집
+        const employeeData = {
+        password: document.getElementById('password').value,
+        name: document.getElementById('name').value,
+        englishName: document.getElementById('englishName').value,
+        personalNumber: document.getElementById('personalNumber').value,
+        phoneNumber: document.getElementById('phoneNumber').value,
+        homePhoneNumber: document.getElementById('homePhoneNumber').value,
+        isMilitary: document.getElementById('isMilitary').value === 'true', // 'true' 문자열을 Boolean으로 변환
+        nationality: document.getElementById('nationality').value,
+        isMartial: document.getElementById('isMartial').value === 'true', // 'true' 문자열을 Boolean으로 변환
+        weddingDay: document.getElementById('weddingDay').value,
+        homeAddress: document.getElementById('homeAddress').value,
+        detailAddress: document.getElementById('detailAddress').value,
+        employmentType: document.getElementById('employmentType').value,
+        joiningDate: document.getElementById('joiningDate').value,
+        resignationType: document.getElementById('resignationType').value,
+        resignationDate: document.getElementById('resignationDate').value,
+        resignationReason: document.getElementById('resignationReason').value,
+        resignationAmount: document.getElementById('resignationAmount').value,
+        workLocation: document.getElementById('workLocation').value,
+        jobCategory: document.getElementById('jobCategory').value,
+        department: document.getElementById('department').value,
+        position: document.getElementById('position').value,
+        positionLank: document.getElementById('positionLank').value,
+        internalPhone: document.getElementById('internalPhone').value,
+        internalEmail: document.getElementById('internalEmail').value,
+        isHighPerformance: document.getElementById('isHighPerformance').value,
+        isUnionMember: document.getElementById('isUnionMember').value,
+        isOverseasAssignment: document.getElementById('isOverseasAssignment').value,
+        shift: document.getElementById('shift').value,
+        };
 
-      <script>
+        // AJAX 요청을 사용하여 서버로 데이터 전송
+        fetch('/api/employees', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(employeeData),
+        })
+        .then(response => response.json())
+        .then(data => {
+        console.log('Success:', data);
+        // 성공적으로 데이터를 전송한 후의 로직 작성
+        })
+       .catch((error) => {
+        console.error('Error:', error);
+        });
+      }
+
         function deleteEmployee(id) {
             var result = confirm("삭제하시겠습니까?");
             if (result) {
@@ -387,7 +385,7 @@
                 });
             }
         }
-      </script>
+    </script>
       
   </body>
 </html>
