@@ -66,30 +66,6 @@
       color: red;
     }
 
-    .custom-btn {
-      background-color: transparent;
-      /* 배경색 투명 */
-      color: black;
-      /* 글자색 검정 */
-      text-decoration: none;
-      /* 밑줄 없음 */
-      border: none;
-      /* 테두리 없음 */
-      padding: 0;
-      /* 패딩 제거 */
-      margin: 0;
-      /* 마진 제거 */
-    }
-
-    .custom-btn:hover {
-      background-color: transparent;
-      /* 호버 시 배경색 유지 */
-      color: lightslategray;
-      /* 호버 시 글자색  */
-      text-decoration: none;
-      /* 호버 시 밑줄 유지 */
-    }
-
     .btn-outline-secondary {
       width: 200px;
       height: 40px;
@@ -111,6 +87,18 @@
     .btn-outline-primary {
       min-width: 70px;
     }
+
+    .btn.btn-primary {
+      width: 100px;
+      height: 35px;
+      font-size: 16px;
+      background-color: pink;
+      border-color: gray;
+      color: black;
+
+    }
+
+
 
     .info-content[readonly] {
       background-color: #f0f0f0;
@@ -149,25 +137,30 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-top: 20px;
-        ">
-      <nav class="navbar" style="background-color: white;">
+          margin-top: 20px;">
+      <div class="navbar" style="background-color: white;">
         <div class="container-fluid">
-          <form class="d-flex" role="search">
-            <!-- <input id="companyIDInput" class="form-control me-2" type="search" placeholder="사번" aria-label="Search"> -->
-            <input id="nameInput" class="form-control me-2" type="search" placeholder="이름" aria-label="Search">
-            <button class="btn btn-outline-success" type="button" onclick="searchEmployee()"
-              style="width: 150px;">검색</button>
-
+          <!-- onsubmit 이벤트 핸들러 추가 -->
+          <form class="d-flex" role="search" onsubmit="event.preventDefault(); searchEmployee();">
+            <input id="companyIDInput" class="form-control me-2" type="search" placeholder="사번" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit" style="width: 150px;">검색</button>
           </form>
         </div>
-      </nav>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-12 d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="showConfirmation()">삭제</button>
+          </div>
+        </div>
+      </div>
 
       <div>
         <button type="button" class="btn btn-outline-primary" onclick="saveEmployeeData()">등록</button>
-
-
       </div>
+
+
     </div>
     <hr />
     <div style="
@@ -178,7 +171,7 @@
           ">
       <div class="row g-2">
         <div class="col-md-3">
-          <!-- 1열: 성명, 사번, 직군/부서 -->
+          <!-- 1열: 성명, 사번, 근무지 -->
           <div class="info-section">
             <label for="name" class="info-title"><span class="required">*</span>이름</label>
             <input type="text" id="name" class="info-content form-control" value="">
@@ -188,12 +181,12 @@
             <input type="text" id="companyId" class="info-content form-control" value="" readonly>
           </div>
           <div class="info-section">
-            <label for="jobCategory/department" class="info-title"><span class="required">*</span>직군/부서</label>
+            <label for="jobCategory/department" class="info-title"><span class="required">*</span>부서</label>
             <input type="text" id="jobCategory/department" class="info-content form-control" value="">
           </div>
         </div>
         <div class="col-md-3">
-          <!-- 2열: 직급, 직책, 사내전화 -->
+          <!-- 2열: 직급, 직책, 부서 -->
           <div class="info-section">
             <label for="positionLank" class="info-title"><span class="required">*</span>직급</label>
             <input type="text" id="positionLank" class="info-content form-control" value="">
@@ -208,7 +201,7 @@
           </div>
         </div>
         <div class="col-md-3">
-          <!-- 3열: 휴대전화, 근무지, 근무조 -->
+          <!-- 3열: 사내메일, 사내전화, 휴대전화 -->
           <div class="info-section">
             <label for="phoneNumber" class="info-title"><span class="required">*</span>휴대전화</label>
             <input type="text" id="phoneNumber" class="info-content form-control" value="">
@@ -223,7 +216,7 @@
           </div>
         </div>
         <div class="col-md-3">
-          <!-- 4열: 입사 일자, 퇴사 구분, 퇴사 일자 -->
+          <!-- 4열: 입사 구분, 입사 일자, 퇴사 구분 -->
           <div class="info-section">
             <label for="joiningDate" class="info-title"><span class="required">*</span>입사 일자</label>
             <input type="date" id="joiningDate" class="info-content form-control" value="">
@@ -263,49 +256,71 @@
       <hr />
       <div class="row">
 
-
         <!-- 기본 인적사항 섹션 -->
         <div id="personalDetailsSection" class="row">
-          <div class="col-md-4">
-            <div class="info-section">
-              <label for="englishName" class="info-title">영문이름</label>
-              <input type="text" id="englishName" class="info-content form-control" value="">
-            </div>
-            <div class="info-section">
-              <label for="personalNumber" class="info-title">주민번호</label>
-              <input type="text" id="personalNumber" class="info-content form-control" value="">
-            </div>
-            <div class="info-section">
-              <label for="homeAddress" class="info-title">자택 주소</label>
-              <input type="text" id="homeAddress" class="info-content form-control" value="">
-            </div>
-            <div class="info-section">
-              <label for="detailAddress" class="info-title">상세 주소</label>
-              <input type="text" id="detailAddress" class="info-content form-control" value="">
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="info-section">
-              <label for="homePhoneNumber" class="info-title">비상연락망</label>
-              <input type="text" id="homePhoneNumber" class="info-content form-control" value="">
-            </div>
-            <div class="info-section">
-              <label for="isMilitary" class="info-title">군필여부</label>
-              <select id="isMilitary" class="info-content form-control">
-                <option value="true">해당</option>
-                <option value="false">미해당</option>
-              </select>
-            </div>
-            <div class="info-section">
-              <label for="isMartial" class="info-title">결혼유무</label>
-              <select id="isMartial" class="info-content form-control">
-                <option value="true">해당</option>
-                <option value="false">미해당</option>
-              </select>
-            </div>
-            <div class="info-section">
-              <label for="weddingDay" class="info-title">결혼기념일</label>
-              <input type="date" id="weddingDay" class="info-content form-control" value="">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- 토글 버튼 컬럼 -->
+              <div class="col-auto">
+                <div class="d-flex flex-column align-items-start">
+                  <p>
+                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#itPlanningContent" role="button"
+                      aria-expanded="false" aria-controls="itPlanningContent">
+                      IT기획
+                    </a>
+                  </p>
+                  <div class="collapse" id="itPlanningContent">
+                    <div class="card card-body">
+                      <ul class="list-unstyled">
+                        <li>기획1팀</li>
+                        <li>기획2팀</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="info-section">
+                  <label for="englishName" class="info-title">영문이름</label>
+                  <input type="text" id="englishName" class="info-content form-control" value="">
+                </div>
+                <div class="info-section">
+                  <label for="personalNumber" class="info-title">주민번호</label>
+                  <input type="text" id="personalNumber" class="info-content form-control" value="">
+                </div>
+                <div class="info-section">
+                  <label for="homeAddress" class="info-title">자택 주소</label>
+                  <input type="text" id="homeAddress" class="info-content form-control" value="">
+                </div>
+                <div class="info-section">
+                  <label for="detailAddress" class="info-title">상세 주소</label>
+                  <input type="text" id="detailAddress" class="info-content form-control" value="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="info-section">
+                  <label for="homePhoneNumber" class="info-title">비상연락망</label>
+                  <input type="text" id="homePhoneNumber" class="info-content form-control" value="">
+                </div>
+                <div class="info-section">
+                  <label for="isMilitary" class="info-title">군필여부</label>
+                  <select id="isMilitary" class="info-content form-control">
+                    <option value="true">해당</option>
+                    <option value="false">미해당</option>
+                  </select>
+                </div>
+                <div class="info-section">
+                  <label for="isMartial" class="info-title">결혼유무</label>
+                  <select id="isMartial" class="info-content form-control">
+                    <option value="true">해당</option>
+                    <option value="false">미해당</option>
+                  </select>
+                </div>
+                <div class="info-section">
+                  <label for="weddingDay" class="info-title">결혼기념일</label>
+                  <input type="date" id="weddingDay" class="info-content form-control" value="">
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -343,71 +358,54 @@
           </div>
         </div>
 
-        <div class="container">
-          <div class="row">
-            <div class="col-12 d-flex justify-content-end">
-              <button type="button" class="btn btn-outline-danger btn-sm" onclick="showConfirmation()">삭제</button>
-            </div>
-          </div>
-        </div>
+
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script>
           function searchEmployee() {
-            const name = document.getElementById("nameInput").value;
+            const companyId = document.getElementById("companyIDInput").value;
 
-            fetch(`/api/employees/${name}`, {
-              method: 'GET', // GET 요청은 body를 포함하지 않음
+            fetch(`/api/employees/${companyId}`, {
+              method: 'GET',
               headers: {
-                'Accept': 'application/json', // 응답으로 JSON을 기대함을 명시
+                'Accept': 'application/json',
               }
             })
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error('Network response was not ok');
-                }
-                return response.json();
-              })
-              .then(data => {
-                // 응답 데이터를 입력 필드에 설정
-                document.getElementById("name").value = data.name; //성명
-                document.getElementById("companyId").value = data.companyId; // 서버 응답에 따라 필드명을 확인하고 조정해야 할 수 있음 //사번
-                document.getElementById("jobCategory/department").value = data.department; // 예시: jobCategory와 department가 하나의 필드로 합쳐져 있다고 가정 //직군부서
-                document.getElementById("positionLank").value = data.positionLank; //직급
-                document.getElementById("position").value = data.position; //직책
-                document.getElementById("internalPhone").value = data.internalPhone; //사내전화
-                document.getElementById("phoneNumber").value = data.phoneNumber; //휴대전화
-                document.getElementById("workLocation").value = data.workLocation; //근무지
-                document.getElementById("internalEmail").value = data.internalEmail; //사내메일
-                document.getElementById("joiningDate").value = data.joiningDate ? data.joiningDate.split('T')[0] : ''; // 날짜 형식을 YYYY-MM-DD로 조정 //입사일자
-                document.getElementById("resignationType").value = data.resignationType; //퇴사구분
-                document.getElementById("resignationDate").value = data.resignationDate ? data.resignationDate.split('T')[0] : ''; // 날짜 형식을 YYYY-MM-DD로 조정 //퇴사일자
-                document.getElementById("isMilitary").value = data.isMilitary.toString(); //군필여부
-                document.getElementById("isMartial").value = data.isMartial.toString(); //결혼유무
-                document.getElementById("name").value = data.name; //성명
-                document.getElementById("englishName").value = data.englishName; //영문이름
-                document.getElementById("personalNumber").value = data.personalNumber; //주민번호
-                document.getElementById("homeAddress").value = data.homeAddress; //자택주소
-                document.getElementById("detailAddress").value = data.detailAddress;//상세주소
-                document.getElementById("homeAddress").value = data.homeAddress;//비상연락망
-                document.getElementById("weddingDay").value = data.weddingDay ? data.weddingDay.split('T')[0] : '';//결혼기념일 - 날짜
-                document.getElementById("employmentType").value = data.employmentType.toString();//입사구분  인턴 계약직 신입 경력
-                document.getElementById("isHighPerformance").value = data.isHighPerformance.toString(); //고과여부
-                document.getElementById("isOverseasAssignment").value = data.isOverseasAssignment.toString();//해외파견여부
-                document.getElementById("isUnionMember").value = data.isUnionMember.toString();//조합원 여부 
-                document.getElementById("resignationAmount").value = data.resignationAmount;//퇴직금금액 
-                document.getElementById("resignationReason").value = data.resignationReason;//퇴직사유 
+                    .then(response => {
+                      if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                      }
+                      return response.json();
+                    })
+                    .then(data => {
+                      // 서버 응답에서 employeeData 객체를 정확히 추출
+                      const employeeData = data.data;
 
+                      // 추출된 데이터를 사용하여 입력 필드에 값 설정
+                      document.getElementById("name").value = employeeData.name || '';
+                      document.getElementById("companyId").value = companyId;
+                      document.getElementById("englishName").value = employeeData.englishName || '';
+                      document.getElementById("personalNumber").value = employeeData.personalNumber || '';
+                      document.getElementById("phoneNumber").value = employeeData.phoneNumber || '';
+                      document.getElementById("weddingDay").value = employeeData.weddingDay ? employeeData.weddingDay.split('T')[0] : '';
+                      document.getElementById("homeAddress").value = employeeData.homeAddress || '';
+                      document.getElementById("detailAddress").value = employeeData.detailAddress || '';
+                      document.getElementById("joiningDate").value = employeeData.joiningDate ? employeeData.joiningDate.split('T')[0] : '';
+                      document.getElementById("resignationDate").value = employeeData.resignationDate ? employeeData.resignationDate.split('T')[0] : '';
 
-
-                // 기본인적사항~상벌사항에 대한 데이터 표시 로직 추가 (필요에 따라) //퇴사일자
-              })
-              .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while fetching the employee data');
-              });
+                      // 불리언 값 처리 및 null 값에 대한 처리
+                      document.getElementById("isMilitary").value = employeeData.isMilitary ? 'true' : 'false';
+                      document.getElementById("isMartial").value = employeeData.isMartial !== null ? employeeData.isMartial.toString() : 'false';
+                      document.getElementById("isHighPerformance").value = employeeData.isHighPerformance !== null ? employeeData.isHighPerformance.toString() : 'false';
+                      document.getElementById("isOverseasAssignment").value = employeeData.isOverseasAssignment !== null ? employeeData.isOverseasAssignment.toString() : 'false';
+                      document.getElementById("isUnionMember").value = employeeData.isUnionMember !== null ? employeeData.isUnionMember.toString() : 'false';
+                    })
+                    .catch(error => {
+                      console.error('Error:', error);
+                      alert('An error occurred while fetching the employee data');
+                    });
           }
           // '등록' 버튼을 클릭했을 때 실행되는 함수
           function saveEmployeeData() {
