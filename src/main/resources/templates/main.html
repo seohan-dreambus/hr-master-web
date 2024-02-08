@@ -154,8 +154,8 @@
       <nav class="navbar" style="background-color: white;">
         <div class="container-fluid">
           <form class="d-flex" role="search">
-            <input id="companyIDInput" class="form-control me-2" type="search" placeholder="사번" aria-label="Search">
-            <!-- <input id="nameInput" class="form-control me-2" type="search" placeholder="이름" aria-label="Search"> -->
+            <!-- <input id="companyIDInput" class="form-control me-2" type="search" placeholder="사번" aria-label="Search"> -->
+            <input id="nameInput" class="form-control me-2" type="search" placeholder="이름" aria-label="Search">
             <button class="btn btn-outline-success" type="button" onclick="searchEmployee()"
               style="width: 150px;">검색</button>
 
@@ -180,7 +180,7 @@
         <div class="col-md-3">
           <!-- 1열: 성명, 사번, 직군/부서 -->
           <div class="info-section">
-            <label for="name" class="info-title"><span class="required">*</span>성명</label>
+            <label for="name" class="info-title"><span class="required">*</span>이름</label>
             <input type="text" id="name" class="info-content form-control" value="">
           </div>
           <div class="info-section">
@@ -356,9 +356,9 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script>
           function searchEmployee() {
-            const companyID = document.getElementById("companyIDInput").value;
+            const name = document.getElementById("nameInput").value;
 
-            fetch(`/api/employees/${companyID}`, {
+            fetch(`/api/employees/${name}`, {
               method: 'GET', // GET 요청은 body를 포함하지 않음
               headers: {
                 'Accept': 'application/json', // 응답으로 JSON을 기대함을 명시
