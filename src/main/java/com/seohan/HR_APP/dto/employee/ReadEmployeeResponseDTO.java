@@ -71,9 +71,6 @@ public class ReadEmployeeResponseDTO {
     private String workLocation;// 근무지
 
     @NotBlank
-    private String jobCategory;// 직군
-
-    @NotBlank
     private String department;// 부서
 
     @NotBlank
@@ -118,7 +115,6 @@ public class ReadEmployeeResponseDTO {
         this.resignationReason = findEmployee.getResignationReason();
         this.resignationAmount = findEmployee.getResignationAmount();
         this.workLocation = findEmployee.getWorkLocation();
-        this.jobCategory = findEmployee.getJobCategory();
         this.position = findEmployee.getPosition();
         this.positionLank = findEmployee.getPositionLank();
         this.internalPhone = findEmployee.getInternalPhone();

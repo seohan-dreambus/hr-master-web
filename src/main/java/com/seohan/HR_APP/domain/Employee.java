@@ -20,6 +20,14 @@ import java.util.Date;
 @Slf4j
 public class Employee {
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumns({
+            @JoinColumn(name = "department_change_id", referencedColumnName = "department_change_id"),
+            @JoinColumn(name = "department_code", referencedColumnName = "department_code")
+    })
+    private Department department; // 부서
+
     @Id
     @Column(name = "company_id")
     private String companyId; //auto import 아님
@@ -100,15 +108,6 @@ public class Employee {
     private String workLocation;// 근무지
 
     @NotNull
-    @Column(name = "job_category")
-    private String jobCategory;// 직군
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_change_id")
-    private Department department;// 부서
-
-    @NotNull
     private String position;// 직책
 
     @NotNull
@@ -165,7 +164,6 @@ public class Employee {
         this.resignationReason = resignationReason;
         this.resignationAmount = resignationAmount;
         this.workLocation = workLocation;
-        this.jobCategory = jobCategory;
         this.position = position;
         this.positionLank = positionLank;
         this.internalPhone = internalPhone;
@@ -177,7 +175,7 @@ public class Employee {
     }
 
     private String createCompanyId() {
-        //년도월+채번 24021, 24022, 24023
+        //년도월 + 랜덤문자열4자리
         LocalDate currentDate = LocalDate.now();
         String formattedYear = String.format("%02d", currentDate.getYear() % 100);
         String formattedMonth = String.format("%02d", currentDate.getMonthValue());
