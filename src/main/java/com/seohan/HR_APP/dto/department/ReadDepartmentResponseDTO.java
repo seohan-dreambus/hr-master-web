@@ -1,4 +1,4 @@
-package com.seohan.HR_APP.dto.employee;
+package com.seohan.HR_APP.dto.department;
 
 import com.seohan.HR_APP.domain.Department;
 import jakarta.validation.constraints.NotBlank;

@@ -2,7 +2,7 @@ package com.seohan.HR_APP.controller.APIcontroller;
 
 import com.seohan.HR_APP.domain.Department;
 import com.seohan.HR_APP.dto.ResponseDTO;
-import com.seohan.HR_APP.dto.employee.ReadDepartmentResponseDTO;
+import com.seohan.HR_APP.dto.department.ReadDepartmentResponseDTO;
 import com.seohan.HR_APP.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
