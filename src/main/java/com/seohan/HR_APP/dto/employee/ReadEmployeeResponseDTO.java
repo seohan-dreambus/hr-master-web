@@ -17,6 +17,9 @@ import java.util.Date;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ReadEmployeeResponseDTO {
 
+    @NotBlank
+    private String companyId; //사번
+
     // 인적사항
     @NotBlank
     private String name; //이름
@@ -93,6 +96,7 @@ public class ReadEmployeeResponseDTO {
     private ShiftType shift;// 근무조
 
     public ReadEmployeeResponseDTO(Employee findEmployee) {
+        this.companyId = findEmployee.getCompanyId();
         this.name = findEmployee.getName();
         this.englishName = findEmployee.getEnglishName();
         this.personalNumber = findEmployee.getPersonalNumber();

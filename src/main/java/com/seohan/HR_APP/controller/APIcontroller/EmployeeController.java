@@ -2,7 +2,6 @@ package com.seohan.HR_APP.controller.APIcontroller;
 
 import com.seohan.HR_APP.domain.Employee;
 import com.seohan.HR_APP.dto.ResponseDTO;
-import com.seohan.HR_APP.dto.department.ReadDepartmentResponseDTO;
 import com.seohan.HR_APP.dto.employee.*;
 import com.seohan.HR_APP.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -66,12 +65,24 @@ public class EmployeeController {
     //사원 이름으로 목록 조회(검색)
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/api/employees/name/{name}")
-    public ResponseDTO<?> getEmployeeList(@PathVariable String name){
+    public ResponseDTO<?> getEmployeeListByName(@PathVariable String name){
         final List<Employee> employeeList = employeeService.getEmployeeByName(name);
         List<EmployeeShortResponseDTO> result = employeeList.stream()
                 .map(employee -> new EmployeeShortResponseDTO(employee))
                 .collect(Collectors.toList());
 
-        return new ResponseDTO<>(result, "사원 이름으로 목록 조회 성공");
+        return new ResponseDTO<>(result, "사원 이름으로 사원 목록 조회 성공");
+    }
+
+    //부서로 목록 조회(검색)
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/api/employees/department/{departmentChangeId}")
+    public ResponseDTO<?> getEmployeeListByDepartment(@PathVariable String departmentChangeId){
+        final List<Employee> employeeList = employeeService.getEmployeeByDepartment(departmentChangeId);
+        List<EmployeeShortResponseDTO> result = employeeList.stream()
+                .map(employee -> new EmployeeShortResponseDTO(employee))
+                .collect(Collectors.toList());
+
+        return new ResponseDTO<>(result, "부서별 사원 목록 조회 성공");
     }
 }
