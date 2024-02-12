@@ -191,7 +191,109 @@ public class Employee {
         this.department = department;
     }
 
-
     //==수정 메서드==//
 
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updateEnglishName(String englishName) {
+        this.englishName = englishName;
+    }
+
+    public void updatePersonalNumber(String personalNumber) {
+        this.personalNumber = personalNumber;
+    }
+
+    public void updatePhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void updateHomePhoneNumber(String homePhoneNumber) {
+        this.homePhoneNumber = homePhoneNumber;
+    }
+
+    public void updateMilitary(Boolean military) {
+        isMilitary = military;
+    }
+
+    public void updateNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public void updateMartial(Boolean martial) {
+        isMartial = martial;
+    }
+
+    public void updateWeddingDay(Date weddingDay) {
+        this.weddingDay = weddingDay;
+    }
+
+    public void updateHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public void updateDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
+    }
+
+    public void updateEmploymentType(String employmentType) {
+        this.employmentType = employmentType;
+    }
+
+    public void updateJoiningDate(Date joiningDate) {
+        this.joiningDate = joiningDate;
+    }
+
+    public void updateResignationType(ResignationType resignationType) {
+        this.resignationType = resignationType;
+    }
+
+    public void updateResignationDate(Date resignationDate) {
+        this.resignationDate = resignationDate;
+    }
+
+    public void updateResignationReason(String resignationReason) {
+        this.resignationReason = resignationReason;
+    }
+
+    public void updateResignationAmount(String resignationAmount) {
+        this.resignationAmount = resignationAmount;
+    }
+
+    public void updateWorkLocation(String workLocation) {
+        this.workLocation = workLocation;
+    }
+
+    public void updatePosition(String position) {
+        this.position = position;
+    }
+
+    public void updatePositionLank(String positionLank) {
+        this.positionLank = positionLank;
+    }
+
+    public void updateInternalPhone(String internalPhone) {
+        this.internalPhone = internalPhone;
+    }
+
+    public void updateInternalEmail(String internalEmail) {
+        this.internalEmail = internalEmail;
+    }
+
+    public void updateHighPerformance(Boolean highPerformance) {
+        isHighPerformance = highPerformance;
+    }
+
+    public void updateUnionMember(Boolean unionMember) {
+        isUnionMember = unionMember;
+    }
+
+    public void updateOverseasAssignment(Boolean overseasAssignment) {
+        isOverseasAssignment = overseasAssignment;
+    }
+
+    public void updateShift(String shift) {
+        this.shift = shift;
+    }
 }

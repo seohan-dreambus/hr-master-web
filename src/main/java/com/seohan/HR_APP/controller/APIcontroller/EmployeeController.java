@@ -51,7 +51,7 @@ public class EmployeeController {
             @RequestBody @Valid final UpdateEmployeeRequestDTO requestDTO){
 
         final Employee updatedEmployee = employeeService.update(companyId, requestDTO);
-        return new ResponseDTO<>(new ReadEmployeeResponseDTO(updatedEmployee), "정상 수정 처리 되었습니다.");
+        return new ResponseDTO<>(new ReadEmployeeResponseDTO(updatedEmployee), "사원 수정 성공");
     }
 
     @ResponseStatus(HttpStatus.OK)

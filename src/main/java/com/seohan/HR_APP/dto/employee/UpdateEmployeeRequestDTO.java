@@ -3,6 +3,7 @@ package com.seohan.HR_APP.dto.employee;
 import com.seohan.HR_APP.domain.enumType.UserAuthority;
 import com.seohan.HR_APP.domain.enumType.ResignationType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +37,7 @@ public class UpdateEmployeeRequestDTO {
 
     private String homePhoneNumber;//자택 전화번호(비상연락망)
 
-    @NotBlank
+    @NotNull
     private Boolean isMilitary; //군필
 
     @NotBlank
@@ -56,10 +57,10 @@ public class UpdateEmployeeRequestDTO {
     @NotBlank
     private String employmentType;// 입사구분
 
-    @NotBlank
+    @NotNull
     private Date joiningDate;// 입사 날짜
 
-    @NotBlank
+    @NotNull
     private ResignationType resignationType; //퇴사 타입 (재직/퇴사/휴직)
 
     private Date resignationDate;// 퇴사 일자
@@ -87,14 +88,14 @@ public class UpdateEmployeeRequestDTO {
 
     private String internalEmail;// 사내메일
 
-    @NotBlank
-    private String isHighPerformance;// 고과여부
+    @NotNull
+    private Boolean isHighPerformance;// 고과여부
 
-    @NotBlank
-    private String isUnionMember;// 조합원 여부
+    @NotNull
+    private Boolean isUnionMember;// 조합원 여부
 
-    @NotBlank
-    private String isOverseasAssignment;// 해외파견 여부
+    @NotNull
+    private Boolean isOverseasAssignment;// 해외파견 여부
 
     private String shift;// 근무조
 }

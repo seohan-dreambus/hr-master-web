@@ -101,6 +101,7 @@ public class CreateEmployeeRequestDTO {
 
     public Employee toEntity(Department department) {
         return Employee.builder()
+                .department(department)
                 .password(password)
                 .name(name)
                 .englishName(englishName)
