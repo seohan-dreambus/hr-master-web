@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -84,5 +86,9 @@ public class EmployeeService {
             employee.setDepartment(department);
         }
         return employee;
+    }
+
+    public List<Employee> getEmployeeByName(String name) {
+        return repo.findByName(name);
     }
 }

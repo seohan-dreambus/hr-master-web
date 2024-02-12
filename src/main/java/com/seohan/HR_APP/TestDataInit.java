@@ -2,8 +2,8 @@ package com.seohan.HR_APP;
 
 import com.seohan.HR_APP.domain.Department;
 import com.seohan.HR_APP.domain.Employee;
+import com.seohan.HR_APP.domain.enumType.*;
 import com.seohan.HR_APP.repository.JdbcTemplateDepartmentRepository;
-import com.seohan.HR_APP.domain.enumType.ResignationType;
 import com.seohan.HR_APP.repository.DepartmentRepository;
 import com.seohan.HR_APP.repository.EmployeeRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -73,15 +73,16 @@ public class TestDataInit {
                 .personalNumber("123456-1234567") // 주민번호 예시
                 .phoneNumber("010-1234-5678") // 휴대폰 번호 예시
                 .isMilitary(true) // 군필 여부 예시
-                .nationality("대한민국") // 국적 예시
+                .nationality(NationalityType.대한민국) // 국적 예시
                 .homeAddress("서울시 강남구") // 실거주지 주소 예시
                 .detailAddress("강남대로 1234번지") // 상세주소 예시
-                .employmentType("정규직") // 입사구분 예시
+                .employmentType(EmploymentType.신입) // 입사구분 예시
                 .joiningDate(new Date()) // 입사 날짜 예시 (현재 날짜)
-                .resignationType(ResignationType.EMPLOYMENT) // 퇴사 타입 예시
-                .workLocation("서울") // 근무지 예시
-                .position("사원") // 직책 예시
-                .positionLank("매니저") // 직급 예시
+                .resignationType(ResignationType.재직) // 퇴사 타입 예시
+                .workLocation(WorkLocationType.서울) // 근무지 예시
+                .position(PositionType.매니저) // 직책 예시
+                .positionLank(PositionLankType.사원) // 직급 예시
+                .shift(ShiftType.주간)
                 .build();
 
         Department.DepartmentId id = new Department.DepartmentId("202402122", "D20ITM");

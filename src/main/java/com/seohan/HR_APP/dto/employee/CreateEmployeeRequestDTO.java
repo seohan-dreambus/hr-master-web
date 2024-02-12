@@ -2,7 +2,7 @@ package com.seohan.HR_APP.dto.employee;
 
 import com.seohan.HR_APP.domain.Department;
 import com.seohan.HR_APP.domain.Employee;
-import com.seohan.HR_APP.domain.enumType.ResignationType;
+import com.seohan.HR_APP.domain.enumType.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -40,8 +40,8 @@ public class CreateEmployeeRequestDTO {
     @NotNull
     private Boolean isMilitary; //군필
 
-    @NotBlank
-    private String nationality; //국적
+    @NotNull
+    private NationalityType nationality; //국적
 
     private Boolean isMartial;// 결혼 유무
 
@@ -54,8 +54,8 @@ public class CreateEmployeeRequestDTO {
     private String detailAddress;// 상세주소
 
     //회사 근무사항
-    @NotBlank
-    private String employmentType;// 입사구분
+    @NotNull
+    private EmploymentType employmentType;// 입사구분
 
     @NotNull
     private Date joiningDate;// 입사 날짜
@@ -69,20 +69,17 @@ public class CreateEmployeeRequestDTO {
 
     private String resignationAmount;// 퇴사 금액
 
-    @NotBlank
-    private String workLocation;// 근무지
-
-    @NotBlank
-    private String jobCategory;// 직군
+    @NotNull
+    private WorkLocationType workLocation;// 근무지
 
     @NotBlank
     private String department;// 부서
 
-    @NotBlank
-    private String position;// 직책
+    @NotNull
+    private PositionType position;// 직책
 
-    @NotBlank
-    private String positionLank;// 직급
+    @NotNull
+    private PositionLankType positionLank;// 직급
 
     private String internalPhone;// 사내전화
 
@@ -97,7 +94,7 @@ public class CreateEmployeeRequestDTO {
     @NotNull
     private Boolean isOverseasAssignment;// 해외파견 여부
 
-    private String shift;// 근무조
+    private ShiftType shift;// 근무조
 
     public Employee toEntity(Department department) {
         return Employee.builder()
@@ -121,7 +118,6 @@ public class CreateEmployeeRequestDTO {
                 .resignationReason(resignationReason)
                 .resignationAmount(resignationAmount)
                 .workLocation(workLocation)
-                .jobCategory(jobCategory)
                 .position(position)
                 .positionLank(positionLank)
                 .internalPhone(internalPhone)

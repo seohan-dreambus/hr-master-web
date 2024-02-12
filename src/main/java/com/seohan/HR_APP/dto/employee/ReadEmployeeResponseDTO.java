@@ -2,8 +2,9 @@ package com.seohan.HR_APP.dto.employee;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.seohan.HR_APP.domain.Employee;
-import com.seohan.HR_APP.domain.enumType.ResignationType;
+import com.seohan.HR_APP.domain.enumType.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,9 +16,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ReadEmployeeResponseDTO {
-
-    @NotBlank
-    private String password; //비밀번호
 
     // 인적사항
     @NotBlank
@@ -37,8 +35,8 @@ public class ReadEmployeeResponseDTO {
     @NotBlank
     private Boolean isMilitary; //군필
 
-    @NotBlank
-    private String nationality; //국적
+    @NotNull
+    private NationalityType nationality; //국적
 
     private Boolean isMartial;// 결혼 유무
 
@@ -51,8 +49,8 @@ public class ReadEmployeeResponseDTO {
     private String detailAddress;// 상세주소
 
     //회사 근무사항
-    @NotBlank
-    private String employmentType;// 입사구분
+    @NotNull
+    private EmploymentType employmentType;// 입사구분
 
     @NotBlank
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -67,17 +65,17 @@ public class ReadEmployeeResponseDTO {
 
     private String resignationAmount;// 퇴사 금액
 
-    @NotBlank
-    private String workLocation;// 근무지
+    @NotNull
+    private WorkLocationType workLocation;// 근무지
 
     @NotBlank
     private String department;// 부서
 
-    @NotBlank
-    private String position;// 직책
+    @NotNull
+    private PositionType position;// 직책
 
-    @NotBlank
-    private String positionLank;// 직급
+    @NotNull
+    private PositionLankType positionLank;// 직급
 
     private String internalPhone;// 사내전화
 
@@ -92,11 +90,9 @@ public class ReadEmployeeResponseDTO {
     @NotBlank
     private Boolean isOverseasAssignment;// 해외파견 여부
 
-    private String shift;// 근무조
+    private ShiftType shift;// 근무조
 
-    //TODO
     public ReadEmployeeResponseDTO(Employee findEmployee) {
-        this.password = findEmployee.getPassword();
         this.name = findEmployee.getName();
         this.englishName = findEmployee.getEnglishName();
         this.personalNumber = findEmployee.getPersonalNumber();

@@ -2,10 +2,8 @@ package com.seohan.HR_APP.controller.APIcontroller;
 
 import com.seohan.HR_APP.domain.Employee;
 import com.seohan.HR_APP.dto.ResponseDTO;
-import com.seohan.HR_APP.dto.employee.CreateEmployeeRequestDTO;
-import com.seohan.HR_APP.dto.employee.ReadEmployeeListRequestDTO;
-import com.seohan.HR_APP.dto.employee.ReadEmployeeResponseDTO;
-import com.seohan.HR_APP.dto.employee.UpdateEmployeeRequestDTO;
+import com.seohan.HR_APP.dto.department.ReadDepartmentResponseDTO;
+import com.seohan.HR_APP.dto.employee.*;
 import com.seohan.HR_APP.service.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -63,14 +63,15 @@ public class EmployeeController {
         return new ResponseDTO<>(new ReadEmployeeResponseDTO(findEmployee), "사원 조회 성공");
     }
 
-    //사원 목록 조회(검색)
+    //사원 이름으로 목록 조회(검색)
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/api/employees/search/{search}")
-    public ResponseDTO<?> getEmployeeList(
-            @PathVariable String search,
-            @RequestBody @Valid final ReadEmployeeListRequestDTO requestDTO){
-        //TODO
+    @GetMapping("/api/employees/name/{name}")
+    public ResponseDTO<?> getEmployeeList(@PathVariable String name){
+        final List<Employee> employeeList = employeeService.getEmployeeByName(name);
+        List<EmployeeShortResponseDTO> result = employeeList.stream()
+                .map(employee -> new EmployeeShortResponseDTO(employee))
+                .collect(Collectors.toList());
 
-        return null;
+        return new ResponseDTO<>(result, "사원 이름으로 목록 조회 성공");
     }
 }

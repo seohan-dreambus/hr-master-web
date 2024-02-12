@@ -1,7 +1,6 @@
 package com.seohan.HR_APP.domain;
 
-import com.seohan.HR_APP.domain.enumType.ResignationType;
-import com.seohan.HR_APP.domain.enumType.UserAuthority;
+import com.seohan.HR_APP.domain.enumType.*;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -64,7 +63,8 @@ public class Employee {
     private Boolean isMilitary; //군필
 
     @NotNull
-    private String nationality; //국적
+    @Enumerated(value = EnumType.STRING)
+    private NationalityType nationality; //국적
 
     @Column(name = "is_martial")
     private Boolean isMartial;// 결혼 유무
@@ -82,8 +82,9 @@ public class Employee {
 
     //회사 근무사항
     @NotNull
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "employment_type")
-    private String employmentType;// 입사구분
+    private EmploymentType employmentType;// 입사구분
 
     @NotNull
     @Column(name = "joining_date")
@@ -104,15 +105,18 @@ public class Employee {
     private String resignationAmount;// 퇴사 금액
 
     @NotNull
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "work_location")
-    private String workLocation;// 근무지
+    private WorkLocationType workLocation;// 근무지
 
     @NotNull
-    private String position;// 직책
+    @Enumerated(value = EnumType.STRING)
+    private PositionType position;// 직책
 
     @NotNull
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "position_lank")
-    private String positionLank;// 직급
+    private PositionLankType positionLank;// 직급
 
     @Column(name = "internal_phone")
     private String internalPhone;// 사내전화
@@ -132,7 +136,7 @@ public class Employee {
     @Column(name = "is_overseas_assignment")
     private Boolean isOverseasAssignment;// 해외파견 여부
 
-    private String shift;// 근무조
+    private ShiftType shift;// 근무조
 
     public void encodePassword(PasswordEncoder passwordEncoder){
         password = passwordEncoder.encode(password);
@@ -140,7 +144,7 @@ public class Employee {
 
     //생성자
     @Builder
-    public Employee(Department department, String password, String name, String englishName, String personalNumber, String phoneNumber, String homePhoneNumber, Boolean isMilitary, String nationality, Boolean isMartial, Date weddingDay, String homeAddress, String detailAddress, String employmentType, Date joiningDate, ResignationType resignationType, Date resignationDate, String resignationReason, String resignationAmount, String workLocation, String jobCategory, String position, String positionLank, String internalPhone, String internalEmail, Boolean isHighPerformance, Boolean isUnionMember, Boolean isOverseasAssignment, String shift) {
+    public Employee(Department department, String password, String name, String englishName, String personalNumber, String phoneNumber, String homePhoneNumber, Boolean isMilitary, NationalityType nationality, Boolean isMartial, Date weddingDay, String homeAddress, String detailAddress, EmploymentType employmentType, Date joiningDate, ResignationType resignationType, Date resignationDate, String resignationReason, String resignationAmount, WorkLocationType workLocation, PositionType position, PositionLankType positionLank, String internalPhone, String internalEmail, Boolean isHighPerformance, Boolean isUnionMember, Boolean isOverseasAssignment, ShiftType shift) {
         this.companyId = createCompanyId();
         this.userAuthority = UserAuthority.ADMIN;
         setDepartment(department);
@@ -217,7 +221,7 @@ public class Employee {
         isMilitary = military;
     }
 
-    public void updateNationality(String nationality) {
+    public void updateNationality(NationalityType nationality) {
         this.nationality = nationality;
     }
 
@@ -237,7 +241,7 @@ public class Employee {
         this.detailAddress = detailAddress;
     }
 
-    public void updateEmploymentType(String employmentType) {
+    public void updateEmploymentType(EmploymentType employmentType) {
         this.employmentType = employmentType;
     }
 
@@ -261,15 +265,15 @@ public class Employee {
         this.resignationAmount = resignationAmount;
     }
 
-    public void updateWorkLocation(String workLocation) {
+    public void updateWorkLocation(WorkLocationType workLocation) {
         this.workLocation = workLocation;
     }
 
-    public void updatePosition(String position) {
+    public void updatePosition(PositionType position) {
         this.position = position;
     }
 
-    public void updatePositionLank(String positionLank) {
+    public void updatePositionLank(PositionLankType positionLank) {
         this.positionLank = positionLank;
     }
 
@@ -293,7 +297,7 @@ public class Employee {
         isOverseasAssignment = overseasAssignment;
     }
 
-    public void updateShift(String shift) {
+    public void updateShift(ShiftType shift) {
         this.shift = shift;
     }
 }
