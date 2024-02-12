@@ -65,6 +65,7 @@ public class Department {
         }
     }
 
+    @Builder
     public Department(DepartmentId departmentId, String departmentName, String departmentEnglishName, Date changeDate, Department upperDepartment, Boolean isLeafNode) {
         this.id = departmentId;
         this.departmentName = departmentName;
