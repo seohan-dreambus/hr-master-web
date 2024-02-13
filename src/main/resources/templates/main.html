@@ -310,7 +310,7 @@
         <div class="col-md-3">
           <div class="info-section">
             <label for="employmentType" class="info-title"><span class="required">*</span>입사 구분</label>
-            <input type="text" id="employmentType" class="info-content form-control" value="" readonly>
+            <input type="text" id="employmentType" class="info-content form-control" value="">
           </div>
           <div class="info-section">
             <label for="joiningDate" class="info-title"><span class="required">*</span>입사 일자</label>
@@ -318,7 +318,7 @@
           </div>
           <div class="info-section">
             <label for="resignationType" class="info-title">퇴사 구분</label>
-            <input type="text" id="resignationType" class="info-content form-control" value="" readonly>
+            <input type="text" id="resignationType" class="info-content form-control" value="">
           </div>
         </div>
       </div>
@@ -544,36 +544,49 @@
           }
           // '등록' 버튼을 클릭했을 때 실행되는 함수
           function saveEmployeeData() {
-            // 각 입력 필드에서 값 수집
+            // 필수 입력 필드 리스트
+            const requiredFieldIds = [
+              'name', 'workLocation', 'positionLank', 'position', 'department', 'phoneNumber',
+              'joiningDate', 'englishName', 'personalNumber', 'homeAddress', 'detailAddress',
+              'nationality', 'isMilitary', 'isUnionMember', 'isHighPerformance', 'isOverseasAssignment'
+            ];
+
+            // 필수 입력 필드가 비어 있는지 확인
+            const isAnyFieldEmpty = requiredFieldIds.some(fieldId => {
+              const inputElement = document.getElementById(fieldId);
+              return !inputElement || !inputElement.value.trim();
+            });
+            if (isAnyFieldEmpty) {
+              alert('필수로 입력해야 하는 정보를 확인해주세요.');
+              return; // 함수 실행 중단
+            }
+
+            // 데이터 수집
             const employeeData = {
-              password: document.getElementById('password').value,
               name: document.getElementById('name').value,
+              workLocation: document.getElementById('workLocation').value,
+              positionLank: document.getElementById('positionLank').value,
+              position: document.getElementById('position').value,
+              department: document.getElementById('department').value,
+              phoneNumber: document.getElementById('phoneNumber').value,
+              joiningDate: document.getElementById('joiningDate').value,
               englishName: document.getElementById('englishName').value,
               personalNumber: document.getElementById('personalNumber').value,
-              phoneNumber: document.getElementById('phoneNumber').value,
-              homePhoneNumber: document.getElementById('homePhoneNumber').value,
-              isMilitary: document.getElementById('isMilitary').value === 'true', // 'true' 문자열을 Boolean으로 변환
-              nationality: document.getElementById('nationality').value,
-              isMartial: document.getElementById('isMartial').value === 'true', // 'true' 문자열을 Boolean으로 변환
-              weddingDay: document.getElementById('weddingDay').value,
               homeAddress: document.getElementById('homeAddress').value,
               detailAddress: document.getElementById('detailAddress').value,
+              nationality: document.getElementById('nationality').value,
               employmentType: document.getElementById('employmentType').value,
-              joiningDate: document.getElementById('joiningDate').value,
-              resignationType: document.getElementById('resignationType').value,
-              resignationDate: document.getElementById('resignationDate').value,
-              resignationReason: document.getElementById('resignationReason').value,
-              resignationAmount: document.getElementById('resignationAmount').value,
-              workLocation: document.getElementById('workLocation').value,
-              jobCategory: document.getElementById('jobCategory').value,
-              department: document.getElementById('department').value,
-              position: document.getElementById('position').value,
-              positionLank: document.getElementById('positionLank').value,
-              internalPhone: document.getElementById('internalPhone').value,
-              internalEmail: document.getElementById('internalEmail').value,
-              isHighPerformance: document.getElementById('isHighPerformance').value,
-              isUnionMember: document.getElementById('isUnionMember').value,
-              isOverseasAssignment: document.getElementById('isOverseasAssignment').value,
+              isMilitary: document.getElementById('isMilitary').value === 'true',
+              isUnionMember: document.getElementById('isUnionMember').value === '해당',
+              isHighPerformance: document.getElementById('isHighPerformance').value === '대상',
+              isOverseasAssignment: document.getElementById('isOverseasAssignment').value === '해당',
+              password: '1111',
+              // 선택적 필드 처리
+              homePhoneNumber: document.getElementById('homePhoneNumber') ? document.getElementById('homePhoneNumber').value : null,
+              resignationDate: document.getElementById('resignationDate') ? document.getElementById('resignationDate').value : null,
+              resignationReason: document.getElementById('resignationReason') ? document.getElementById('resignationReason').value : null,
+              resignationAmount: document.getElementById('resignationAmount') ? document.getElementById('resignationAmount').value : null,
+              // '입사 구분' 필드는 제외
             };
 
             // AJAX 요청을 사용하여 서버로 데이터 전송
@@ -584,13 +597,20 @@
               },
               body: JSON.stringify(employeeData),
             })
-              .then(response => response.json())
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
               .then(data => {
                 console.log('Success:', data);
-                // 성공적으로 데이터를 전송한 후의 로직 작성
+                alert('사원 정보가 성공적으로 등록되었습니다.');
+                // 성공 후 처리 로직, 예: 폼 초기화 또는 페이지 새로고침
               })
-              .catch((error) => {
+              .catch(error => {
                 console.error('Error:', error);
+                alert('사원 정보 등록에 실패했습니다.');
               });
           }
 
@@ -624,7 +644,7 @@
                 });
             }
           }
-          
+
           function hideAllSections() {
             document.getElementById("personalDetailsSection").style.display = "none";
             document.getElementById("workDetailsSection").style.display = "none";

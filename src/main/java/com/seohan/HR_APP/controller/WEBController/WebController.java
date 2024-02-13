@@ -15,6 +15,6 @@ public class WebController {
 
     @GetMapping("/")
     public String mainPage(){
-        return "main";
+        return "first";
     }
 }
