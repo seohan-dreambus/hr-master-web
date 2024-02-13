@@ -60,8 +60,8 @@ public class CreateEmployeeRequestDTO {
     @NotNull
     private Date joiningDate;// 입사 날짜
 
-    @NotNull
-    private ResignationType resignationType; //퇴사 타입 (재직/퇴사/휴직)
+//    @NotNull
+//    private ResignationType resignationType; //퇴사 타입 (재직/퇴사/휴직)
 
     private Date resignationDate;// 퇴사 일자
 
@@ -113,7 +113,7 @@ public class CreateEmployeeRequestDTO {
                 .detailAddress(detailAddress)
                 .employmentType(employmentType)
                 .joiningDate(joiningDate)
-                .resignationType(resignationType)
+                .resignationType(ResignationType.재직)
                 .resignationDate(resignationDate)
                 .resignationReason(resignationReason)
                 .resignationAmount(resignationAmount)
