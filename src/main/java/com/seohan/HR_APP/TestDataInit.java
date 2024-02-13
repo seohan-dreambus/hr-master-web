@@ -1,13 +1,9 @@
 package com.seohan.HR_APP;
 
-import com.seohan.HR_APP.domain.Department;
-import com.seohan.HR_APP.domain.Employee;
-import com.seohan.HR_APP.domain.TrainingHistory;
+import com.seohan.HR_APP.domain.*;
 import com.seohan.HR_APP.domain.enumType.*;
-import com.seohan.HR_APP.repository.JdbcTemplateDepartmentRepository;
-import com.seohan.HR_APP.repository.DepartmentRepository;
-import com.seohan.HR_APP.repository.EmployeeRepository;
-import com.seohan.HR_APP.repository.TrainingHistoryRepository;
+import com.seohan.HR_APP.dto.history.CreateRewardPenaltyRequestDTO;
+import com.seohan.HR_APP.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -18,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -33,6 +31,8 @@ public class TestDataInit {
     private final EmployeeRepository Erepo;
     private final JdbcTemplateDepartmentRepository JdbcDrepo;
     private final TrainingHistoryRepository THrepo;
+    private final InternalHistoryRepository IHrepo;
+    private final RewardPenaltyHistoryRepository RPHrepo;
 
     @EventListener(ApplicationReadyEvent.class)
     @Transactional
@@ -113,5 +113,55 @@ public class TestDataInit {
 
         THrepo.save(th);
         THrepo.save(th2);
+
+
+
+        InternalHistory ih = InternalHistory.builder()
+                .changeReason("승진")
+                .changeTime(LocalDateTime.parse("2023-02-01T10:30:00"))
+                .department("IT기획")
+                .position(PositionType.책임매니저)
+                .positionLank(PositionLankType.대리)
+                .duties("기획 및 프로젝트 관리")
+                .note("승진 사유는 고과 반영 및 인사 평가에 따른 것입니다.")
+                .employee(employee)
+                .build();
+
+        InternalHistory ih2 = InternalHistory.builder()
+                .changeReason("부서 이동")
+                .changeTime(LocalDateTime.parse("2024-02-01T10:30:00"))
+                .department("IT운영")
+                .position(PositionType.책임매니저)
+                .positionLank(PositionLankType.대리)
+                .duties("기획 및 프로젝트 관리")
+                .note("이동 사유는 전략적인 부서 조직 변경에 따른 것입니다.")
+                .employee(employee)
+                .build();
+
+        IHrepo.save(ih);
+        IHrepo.save(ih2);
+
+        RewardPenaltyHistory rph = RewardPenaltyHistory.builder()
+                .issueType(true)
+                .issueDate(LocalDate.parse("2024-02-11"))
+                .issueContent("성과 우수")
+                .issueGrade(IssueGrade.SILVER)
+                .resultPoint(3)
+                .employee(employee)
+                .build();
+
+        RewardPenaltyHistory rph2 = RewardPenaltyHistory.builder()
+                .issueType(true)
+                .issueDate(LocalDate.parse("2024-02-11"))
+                .issueContent("성과 우수")
+                .issueGrade(IssueGrade.GOLD)
+                .resultPoint(8) //3+5
+                .employee(employee)
+                .build();
+
+        RPHrepo.save(rph);
+        RPHrepo.save(rph2);
+
+
     }
 }
