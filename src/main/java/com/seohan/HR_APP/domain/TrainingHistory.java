@@ -3,7 +3,6 @@ package com.seohan.HR_APP.domain;
 import com.seohan.HR_APP.domain.enumType.TrainingType;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
 
@@ -15,14 +14,14 @@ import java.util.Date;
 public class TrainingHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "training_id")
-    private Long trainingId;
+    @Column(name = "history_id")
+    private Long historyId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Employee employee;
 
-    @Column(name = "traning_type", nullable = false, length = 20, columnDefinition = "varchar(20) default '사내'")
+    @Column(name = "traning_type", nullable = false, length = 20)
     @Enumerated(value = EnumType.STRING)
     private TrainingType trainingType;
 
@@ -32,7 +31,7 @@ public class TrainingHistory {
     @Column(name = "traning_name", nullable = false, length = 50)
     private String trainingName;
 
-    @Column(name = "traning_content", length = 255)
+    @Column(name = "traning_content")
     private String trainingContent;
 
     public void setEmployee(Employee employee){
