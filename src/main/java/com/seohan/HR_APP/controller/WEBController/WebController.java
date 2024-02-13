@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class WebController {
     /** 로그인 화면 html 연결 */
-//    @GetMapping("/")
-//    public String loginPage(){
-//        return "login";
-//    }
+    @GetMapping("/login")
+    public String loginPage(){
+        return "login";
+    }
 
     @GetMapping("/")
     public String mainPage(){
