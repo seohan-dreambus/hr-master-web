@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface EmployeeRepository extends JpaRepository<Employee, Long>{
+public interface EmployeeRepository extends JpaRepository<Employee, String>{
     Optional<Employee> findByCompanyId(String companyId); //사번으로 단일 조회
 
     List<Employee> findAllByName(String name); //이름으로 목록 조회
