@@ -2,10 +2,12 @@ package com.seohan.HR_APP;
 
 import com.seohan.HR_APP.domain.Department;
 import com.seohan.HR_APP.domain.Employee;
+import com.seohan.HR_APP.domain.TrainingHistory;
 import com.seohan.HR_APP.domain.enumType.*;
 import com.seohan.HR_APP.repository.JdbcTemplateDepartmentRepository;
 import com.seohan.HR_APP.repository.DepartmentRepository;
 import com.seohan.HR_APP.repository.EmployeeRepository;
+import com.seohan.HR_APP.repository.TrainingHistoryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -30,6 +32,7 @@ public class TestDataInit {
     private final DepartmentRepository Drepo;
     private final EmployeeRepository Erepo;
     private final JdbcTemplateDepartmentRepository JdbcDrepo;
+    private final TrainingHistoryRepository THrepo;
 
     @EventListener(ApplicationReadyEvent.class)
     @Transactional
@@ -91,5 +94,24 @@ public class TestDataInit {
         employee.setDepartment(department);
 
         Erepo.save(employee);
+
+        TrainingHistory th = TrainingHistory.builder()
+                .trainingName("이메일 피싱 보안 교육1")
+                .trainingContent("교육내용")
+                .trainingDate(new Date())
+                .trainingType(TrainingType.사내)
+                .employee(employee)
+                .build();
+
+        TrainingHistory th2 = TrainingHistory.builder()
+                .trainingName("이메일 피싱 보안 교육2")
+                .trainingContent("교육내용")
+                .trainingDate(new Date())
+                .trainingType(TrainingType.사내)
+                .employee(employee)
+                .build();
+
+        THrepo.save(th);
+        THrepo.save(th2);
     }
 }

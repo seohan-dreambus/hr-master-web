@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,5 +28,9 @@ public class HistoryService {
                 .orElseThrow(() -> new EntityNotFoundException("이력 생성 대상자를 찾을 수 없습니다."));
         TrainingHistory trainingHistory = requestDTO.toEntity(employee);
         return trainingRepo.save(trainingHistory);
+    }
+
+    public List<TrainingHistory> getTrainingHistoryList(String companyId){
+        return trainingRepo.findAllByCompanyId(companyId);
     }
 }
