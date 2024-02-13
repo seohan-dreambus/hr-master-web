@@ -15,6 +15,6 @@ public interface DepartmentRepository extends JpaRepository<Department, Departme
     @Query("SELECT d FROM Department d where d.upperDepartment = null")
     List<Department> findRootDepartmentList();
 
-//    @Query("SELECT d FROM Department d where d.id.departmentCode = :departmentCode")
-//    List<Department> findSubDepartmentList(String departmentCode);
+//    @Query("SELECT d FROM Department d where d.id.departmentChangeId = :departmentChangeId and d.upperDepartment != null")
+//    List<Department> findSubDepartmentList(String departmentChangeId);
 }

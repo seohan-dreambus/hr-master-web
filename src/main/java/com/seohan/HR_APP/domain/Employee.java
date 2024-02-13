@@ -8,7 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Entity
@@ -26,6 +28,9 @@ public class Employee {
             @JoinColumn(name = "department_code", referencedColumnName = "department_code")
     })
     private Department department; // 부서
+
+    @OneToMany(mappedBy = "employee")
+    private List<TrainingHistory> trainingList = new ArrayList<>();
 
     @Id
     @Column(name = "company_id")
