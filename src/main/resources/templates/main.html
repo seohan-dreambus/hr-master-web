@@ -6,11 +6,18 @@
   <title>인사마스터</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
   <style>
     .card-header .btn-link {
       color: black;
       /* 글자 색상을 검정으로 변경 */
+    }
+
+    /* 등록 삭제 버튼*/
+    .btn-custom {
+      width: 60px;
+      height: 40px;
+      font-size: 15px;
     }
 
     .card-header,
@@ -71,6 +78,13 @@
       height: 40px;
     }
 
+    .btn-outline-secondary:hover {
+      background-color: lightgray;
+      /* 마우스를 올렸을 때의 배경색 */
+      color: rgb(36, 35, 35);
+    }
+
+
     .btn-block {
       width: 100%;
       /* 버튼 너비를 컬럼 너비에 맞춤 */
@@ -84,16 +98,45 @@
       white-space: nowrap;
     }
 
-    .btn-outline-primary {
-      min-width: 70px;
-    }
-
     .btn.btn-primary {
       width: 100px;
       height: 35px;
       font-size: 16px;
       background-color: pink;
       border-color: gray;
+      color: black;
+
+    }
+
+    /* 토글 */
+    .custom-button {
+      width: 160px;
+      height: 40px;
+      background-color: rgb(249, 210, 217);
+      border-color: rgb(180, 179, 179);
+      color: black;
+      margin-top: 6px;
+    }
+
+    .custom-button:hover {
+      background-color: rgb(249, 181, 181);
+      border-color: rgb(180, 179, 179);
+      color: black;
+    }
+
+    .custom-button:active,
+    .dropdown.show .custom-button {
+      background-color: rgb(249, 181, 181);
+      /* 클릭했을 때와 토글이 열려있을 때의 배경색 */
+    }
+
+    .dropdown-item {
+      text-align: center;
+    }
+
+    .dropdown-item:active {
+      background-color: rgb(249, 210, 217);
+      /* 클릭했을 때의 배경색 */
       color: black;
 
     }
@@ -130,7 +173,7 @@
     crossorigin="anonymous"></script>
   <div>
     <div style="text-align: center; font-size: 24px; margin-top: 20px">
-      인사정보등록
+      인사 정보 등록
     </div>
     <hr />
     <div style="
@@ -142,8 +185,22 @@
         <div class="container-fluid">
           <!-- onsubmit 이벤트 핸들러 추가 -->
           <form class="d-flex" role="search" onsubmit="event.preventDefault(); searchEmployee();">
-            <input id="companyIDInput" class="form-control me-2" type="search" placeholder="사번" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit" style="width: 150px;">검색</button>
+            <input id="companyIDInput" class="form-control" type="search" placeholder="사번" aria-label="Search"
+              style="margin-right: 10px;">
+            <button class="btn btn-outline-success" type="submit" style="width: 50px;"><i
+                class="bi bi-search"></i></button>
+          </form>
+
+        </div>
+      </div>
+      <div class="navbar" style="background-color: white;">
+        <div class="container-fluid">
+          <!-- onsubmit 이벤트 핸들러 추가 -->
+          <form class="d-flex" role="search" onsubmit="event.preventDefault(); searchEmployeesWithName();">
+            <input id="nameInput" class="form-control" type="search" placeholder="사원이름" aria-label="Search"
+              style="margin-right: 10px;">
+            <button class="btn btn-outline-success" type="submit" style="width: 50px;"><i
+                class="bi bi-search"></i></button>
           </form>
         </div>
       </div>
@@ -151,13 +208,14 @@
       <div class="container">
         <div class="row">
           <div class="col-12 d-flex justify-content-end">
-            <button type="button" class="btn btn-outline-danger btn-sm" onclick="showConfirmation()">삭제</button>
+            <button type="button" class="btn btn-outline-danger btn-sm btn-custom"
+              onclick="showConfirmation()">삭제</button>
           </div>
         </div>
       </div>
 
       <div>
-        <button type="button" class="btn btn-outline-primary" onclick="saveEmployeeData()">등록</button>
+        <button type="button" class="btn btn-outline-primary btn-custom" onclick="saveEmployeeData()">등록</button>
       </div>
 
 
@@ -170,8 +228,8 @@
             padding-left: 20px;
           ">
       <div class="row g-2">
+        <!-- 첫 번째 컬럼: 성명, 사번, 근무지 -->
         <div class="col-md-3">
-          <!-- 1열: 성명, 사번, 근무지 -->
           <div class="info-section">
             <label for="name" class="info-title"><span class="required">*</span>이름</label>
             <input type="text" id="name" class="info-content form-control" value="">
@@ -181,56 +239,90 @@
             <input type="text" id="companyId" class="info-content form-control" value="" readonly>
           </div>
           <div class="info-section">
-            <label for="jobCategory/department" class="info-title"><span class="required">*</span>부서</label>
-            <input type="text" id="jobCategory/department" class="info-content form-control" value="">
+            <label for="workLocation" class="info-title"><span class="required">*</span>근무지</label>
+            <select id="workLocation" class="info-content form-control">
+              <option selected disabled>선택하세요</option>
+              <option value="서울">서울</option>
+              <option value="동탄">동탄</option>
+              <option value="진천">진천</option>
+              <option value="울산">울산</option>
+            </select>
           </div>
+
         </div>
+
+        <!-- 두 번째 컬럼: 직급, 직책, 부서 -->
         <div class="col-md-3">
-          <!-- 2열: 직급, 직책, 부서 -->
           <div class="info-section">
             <label for="positionLank" class="info-title"><span class="required">*</span>직급</label>
-            <input type="text" id="positionLank" class="info-content form-control" value="">
+            <select id="positionLank" class="info-content form-control">
+              <option selected disabled>선택하세요</option>
+              <option value="사원">사원</option>
+              <option value="대리">대리</option>
+              <option value="과장">과장</option>
+              <option value="차장">차장</option>
+              <option value="부장">부장</option>
+              <option value="이사">이사</option>
+              <option value="사장">사장</option>
+            </select>
           </div>
           <div class="info-section">
             <label for="position" class="info-title"><span class="required">*</span>직책</label>
-            <input type="text" id="position" class="info-content form-control" value="">
+            <select id="position" class="info-content form-control">
+              <option selected disabled>선택하세요</option>
+              <option value="매니저">매니저</option>
+              <option value="책임매니저">책임매니저</option>
+            </select>
+          </div>
+          <div class="info-section">
+            <label for="department" class="info-title"><span class="required">*</span>부서</label>
+            <select id="department" class="info-content form-control">
+              <option selected disabled>선택하세요</option>
+              <option value="경영전략">경영전략</option>
+              <option value="마케팅">마케팅</option>
+              <option value="생산관리">생산관리</option>
+              <option value="영업">영업</option>
+              <option value="인사">인사</option>
+              <option value="회계">회계</option>
+              <option value="IT기획">IT기획</option>
+              <option value="IT운영">IT운영</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 세 번째 컬럼: 사내메일, 사내전화, 휴대전화 -->
+        <div class="col-md-3">
+          <div class="info-section">
+            <label for="internalEmail" class="info-title">사내메일</label>
+            <input type="text" id="internalEmail" class="info-content form-control" value="">
           </div>
           <div class="info-section">
             <label class="info-title">사내전화</label>
             <input type="text" id="internalPhone" class="info-content form-control" value="">
           </div>
-        </div>
-        <div class="col-md-3">
-          <!-- 3열: 사내메일, 사내전화, 휴대전화 -->
           <div class="info-section">
             <label for="phoneNumber" class="info-title"><span class="required">*</span>휴대전화</label>
             <input type="text" id="phoneNumber" class="info-content form-control" value="">
           </div>
-          <div class="info-section">
-            <label for="workLocation" class="info-title"><span class="required">*</span>근무지</label>
-            <input type="text" id="workLocation" class="info-content form-control" value="">
-          </div>
-          <div class="info-section">
-            <label for="internalEmail" class="info-title">사내메일</label>
-            <input type="text" id="internalEmail" class="info-content form-control" value="">
-          </div>
         </div>
+
+        <!-- 네 번째 컬럼: 입사 구분, 입사 일자, 퇴사 구분 -->
         <div class="col-md-3">
-          <!-- 4열: 입사 구분, 입사 일자, 퇴사 구분 -->
+          <div class="info-section">
+            <label for="employmentType" class="info-title"><span class="required">*</span>입사 구분</label>
+            <input type="text" id="employmentType" class="info-content form-control" value="" readonly>
+          </div>
           <div class="info-section">
             <label for="joiningDate" class="info-title"><span class="required">*</span>입사 일자</label>
             <input type="date" id="joiningDate" class="info-content form-control" value="">
           </div>
           <div class="info-section">
             <label for="resignationType" class="info-title">퇴사 구분</label>
-            <input type="text" id="resignationType" class="info-content form-control" value="">
-          </div>
-          <div class="info-section">
-            <label for="resignationDate" class="info-title">퇴사 일자</label>
-            <input type="date" id="resignationDate" class="info-content form-control" value="" readonly>
+            <input type="text" id="resignationType" class="info-content form-control" value="" readonly>
           </div>
         </div>
       </div>
+
 
       <hr />
 
@@ -263,39 +355,56 @@
               <!-- 토글 버튼 컬럼 -->
               <div class="col-auto">
                 <div class="d-flex flex-column align-items-start">
-                  <p>
-                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#itPlanningContent" role="button"
-                      aria-expanded="false" aria-controls="itPlanningContent">
-                      IT기획
-                    </a>
-                  </p>
-                  <div class="collapse" id="itPlanningContent">
-                    <div class="card card-body">
-                      <ul class="list-unstyled">
-                        <li>기획1팀</li>
-                        <li>기획2팀</li>
-                      </ul>
-                    </div>
+                  <div class="dropdown">
+                    <button class="btn btn-danger dropdown-toggle custom-button" type="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      부서별 조회
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">경영전략</a></li>
+                      <li><a class="dropdown-item" href="#">마케팅</a></li>
+                      <li><a class="dropdown-item" href="#">생산관리</a></li>
+                      <li><a class="dropdown-item" href="#">영업</a></li>
+                      <li><a class="dropdown-item" href="#">인사</a></li>
+                      <li><a class="dropdown-item" href="#">회계</a></li>
+                      <li><a class="dropdown-item" href="#">IT기획</a></li>
+                      <li><a class="dropdown-item" href="#">IT운영</a></li>
+                    </ul>
                   </div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="info-section">
-                  <label for="englishName" class="info-title">영문이름</label>
+                  <label for="englishName" class="info-title"><span class="required">*</span>영문이름</label>
                   <input type="text" id="englishName" class="info-content form-control" value="">
                 </div>
                 <div class="info-section">
-                  <label for="personalNumber" class="info-title">주민번호</label>
+                  <label for="personalNumber" class="info-title"><span class="required">*</span>주민번호</label>
                   <input type="text" id="personalNumber" class="info-content form-control" value="">
                 </div>
                 <div class="info-section">
-                  <label for="homeAddress" class="info-title">자택 주소</label>
+                  <label for="homeAddress" class="info-title"><span class="required">*</span>실거주지주소</label>
                   <input type="text" id="homeAddress" class="info-content form-control" value="">
                 </div>
                 <div class="info-section">
-                  <label for="detailAddress" class="info-title">상세 주소</label>
+                  <label for="detailAddress" class="info-title"><span class="required">*</span>상세주소</label>
                   <input type="text" id="detailAddress" class="info-content form-control" value="">
                 </div>
+                <div class="info-section">
+                  <label for="nationality" class="info-title"><span class="required">*</span>국적</label>
+                  <select id="nationality" class="info-content form-control">
+                    <option selected disabled>선택하세요</option>
+                    <option value="대한민국">대한민국</option>
+                    <option value="멕시코">멕시코</option>
+                    <option value="미국">미국</option>
+                    <option value="베트남">베트남</option>
+                    <option value="일본">일본</option>
+                    <option value="중국">중국</option>
+                    <option value="필리핀">필리핀</option>
+                    <option value="태국">태국</option>
+                  </select>
+                </div>
+
               </div>
               <div class="col-md-4">
                 <div class="info-section">
@@ -303,17 +412,20 @@
                   <input type="text" id="homePhoneNumber" class="info-content form-control" value="">
                 </div>
                 <div class="info-section">
-                  <label for="isMilitary" class="info-title">군필여부</label>
+                  <label for="isMilitary" class="info-title"><span class="required">*</span>군필여부</label>
                   <select id="isMilitary" class="info-content form-control">
-                    <option value="true">해당</option>
-                    <option value="false">미해당</option>
+                    <option selected disabled>선택하세요</option>
+                    <option value="true">군필</option>
+                    <option value="false">면제</option>
+                    <option value="null">해당없음</option>
                   </select>
                 </div>
                 <div class="info-section">
                   <label for="isMartial" class="info-title">결혼유무</label>
                   <select id="isMartial" class="info-content form-control">
-                    <option value="true">해당</option>
-                    <option value="false">미해당</option>
+                    <option selected disabled>선택하세요</option>
+                    <option value="true">기혼</option>
+                    <option value="false">미혼</option>
                   </select>
                 </div>
                 <div class="info-section">
@@ -329,23 +441,35 @@
           <!-- 1열 -->
           <div class="col-md-4">
             <div class="info-section">
-              <label for="employmentType" class="info-title"><span class="required">*</span>입사구분</label>
-              <input type="text" id="employmentType" class="info-content form-control">
+              <label for="isUnionMember" class="info-title"><span class="required">*</span>조합원</label>
+              <select id="isUnionMember" class="info-content form-control">
+                <option selected disabled>선택하세요</option>
+                <option value="해당">해당</option>
+                <option value="비해당">비해당</option>
+              </select>
             </div>
             <div class="info-section">
-              <label for="performance" class="info-title">고과여부</label>
-              <input type="text" id="isHighPerformance" class="info-content form-control">
+              <label for="isHighPerformance" class="info-title"><span class="required">*</span>고과여부</label>
+              <select id="isHighPerformance" class="info-content form-control">
+                <option selected disabled>선택하세요</option>
+                <option value="대상">대상</option>
+                <option value="비대상">비대상</option>
+              </select>
             </div>
             <div class="info-section">
-              <label for="overseas" class="info-title">해외파견</label>
-              <input type="text" id="isOverseasAssignment" class="info-content form-control">
+              <label for="isOverseasAssignment" class="info-title"><span class="required">*</span>해외파견</label>
+              <select id="isOverseasAssignment" class="info-content form-control">
+                <option selected disabled>선택하세요</option>
+                <option value="해당">해당</option>
+                <option value="비해당">비해당</option>
+              </select>
             </div>
           </div>
           <!-- 2열 -->
           <div class="col-md-4">
             <div class="info-section">
-              <label for="unionMember" class="info-title">조합원</label>
-              <input type="text" id="isUnionMember" class="info-content form-control">
+              <label for="resignationDate" class="info-title">퇴사일자</label>
+              <input type="date" id="resignationDate" class="info-content form-control">
             </div>
             <div class="info-section">
               <label for="severancePay" class="info-title">퇴직금금액</label>
@@ -364,48 +488,59 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script>
-          function searchEmployee() {
-            const companyId = document.getElementById("companyIDInput").value;
+          window.searchEmployee = function (companyId = null) {
+            const effectiveCompanyId = companyId || document.getElementById("companyIDInput").value;
 
-            fetch(`/api/employees/${companyId}`, {
+            fetch(`/api/employees/${effectiveCompanyId}`, {
               method: 'GET',
               headers: {
                 'Accept': 'application/json',
               }
             })
-                    .then(response => {
-                      if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                      }
-                      return response.json();
-                    })
-                    .then(data => {
-                      // 서버 응답에서 employeeData 객체를 정확히 추출
-                      const employeeData = data.data;
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                // 서버 응답에서 employeeData 객체를 정확히 추출
+                const employeeData = data.data;
 
-                      // 추출된 데이터를 사용하여 입력 필드에 값 설정
-                      document.getElementById("name").value = employeeData.name || '';
-                      document.getElementById("companyId").value = companyId;
-                      document.getElementById("englishName").value = employeeData.englishName || '';
-                      document.getElementById("personalNumber").value = employeeData.personalNumber || '';
-                      document.getElementById("phoneNumber").value = employeeData.phoneNumber || '';
-                      document.getElementById("weddingDay").value = employeeData.weddingDay ? employeeData.weddingDay.split('T')[0] : '';
-                      document.getElementById("homeAddress").value = employeeData.homeAddress || '';
-                      document.getElementById("detailAddress").value = employeeData.detailAddress || '';
-                      document.getElementById("joiningDate").value = employeeData.joiningDate ? employeeData.joiningDate.split('T')[0] : '';
-                      document.getElementById("resignationDate").value = employeeData.resignationDate ? employeeData.resignationDate.split('T')[0] : '';
-
-                      // 불리언 값 처리 및 null 값에 대한 처리
-                      document.getElementById("isMilitary").value = employeeData.isMilitary ? 'true' : 'false';
-                      document.getElementById("isMartial").value = employeeData.isMartial !== null ? employeeData.isMartial.toString() : 'false';
-                      document.getElementById("isHighPerformance").value = employeeData.isHighPerformance !== null ? employeeData.isHighPerformance.toString() : 'false';
-                      document.getElementById("isOverseasAssignment").value = employeeData.isOverseasAssignment !== null ? employeeData.isOverseasAssignment.toString() : 'false';
-                      document.getElementById("isUnionMember").value = employeeData.isUnionMember !== null ? employeeData.isUnionMember.toString() : 'false';
-                    })
-                    .catch(error => {
-                      console.error('Error:', error);
-                      alert('An error occurred while fetching the employee data');
-                    });
+                // 추출된 데이터를 사용하여 입력 필드에 값 설정
+                document.getElementById("name").value = employeeData.name || '';
+                document.getElementById("companyId").value = employeeData.companyId || '';
+                document.getElementById("englishName").value = employeeData.englishName || '';
+                document.getElementById("personalNumber").value = employeeData.personalNumber || '';
+                document.getElementById("phoneNumber").value = employeeData.phoneNumber || '';
+                document.getElementById("weddingDay").value = employeeData.weddingDay ? employeeData.weddingDay.split('T')[0] : '';
+                document.getElementById("homeAddress").value = employeeData.homeAddress || '';
+                document.getElementById("detailAddress").value = employeeData.detailAddress || '';
+                document.getElementById("joiningDate").value = employeeData.joiningDate ? employeeData.joiningDate.split('T')[0] : '';
+                document.getElementById("resignationDate").value = employeeData.resignationDate ? employeeData.resignationDate.split('T')[0] : '';
+                document.getElementById("homePhoneNumber").value = employeeData.homePhoneNumber || '';
+                document.getElementById("nationality").value = employeeData.nationality || '';
+                document.getElementById("employmentType").value = employeeData.employmentType || '';
+                document.getElementById("resignationType").value = employeeData.resignationType || '';
+                document.getElementById("resignationReason").value = employeeData.resignationReason || '';
+                document.getElementById("resignationAmount").value = employeeData.resignationAmount || '';
+                document.getElementById("workLocation").value = employeeData.workLocation || '';
+                document.getElementById("department").value = employeeData.department || '';
+                document.getElementById("position").value = employeeData.position || '';
+                document.getElementById("positionLank").value = employeeData.positionLank || '';
+                document.getElementById("internalPhone").value = employeeData.internalPhone || '';
+                document.getElementById("internalEmail").value = employeeData.internalEmail || '';
+                // 불리언 값 처리 및 null 값에 대한 처리
+                document.getElementById("isMilitary").value = employeeData.isMilitary ? 'true' : 'false';
+                document.getElementById("isMartial").value = employeeData.isMartial !== null ? employeeData.isMartial.toString() : 'false';
+                document.getElementById("isHighPerformance").value = employeeData.isHighPerformance !== null ? employeeData.isHighPerformance.toString() : 'false';
+                document.getElementById("isOverseasAssignment").value = employeeData.isOverseasAssignment !== null ? employeeData.isOverseasAssignment.toString() : 'false';
+                document.getElementById("isUnionMember").value = employeeData.isUnionMember !== null ? employeeData.isUnionMember.toString() : 'false';
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while fetching the employee data');
+              });
           }
           // '등록' 버튼을 클릭했을 때 실행되는 함수
           function saveEmployeeData() {
@@ -439,7 +574,6 @@
               isHighPerformance: document.getElementById('isHighPerformance').value,
               isUnionMember: document.getElementById('isUnionMember').value,
               isOverseasAssignment: document.getElementById('isOverseasAssignment').value,
-              shift: document.getElementById('shift').value,
             };
 
             // AJAX 요청을 사용하여 서버로 데이터 전송
@@ -460,27 +594,37 @@
               });
           }
 
-          function deleteEmployee(id) {
-            var result = confirm("삭제하시겠습니까?");
+          function showConfirmation() {
+            // 사번 입력 필드에서 사번 값을 가져옵니다.
+            const companyId = document.getElementById("companyIDInput").value;
+
+            // 사번이 입력되지 않았을 경우 경고
+            if (!companyId) {
+              alert("사번을 입력해 주세요.");
+              return;
+            }
+
+            var result = confirm("해당 사원을 삭제하시겠습니까?");
             if (result) {
-              // 서버로 DELETE 요청을 보냅니다.
-              fetch(`/api/employees/{companyId}`, {
+              // 사용자가 확인을 선택한 경우, 서버로 DELETE 요청을 보냅니다.
+              fetch(`/api/employees/${companyId}`, {
                 method: 'DELETE',
               })
                 .then(response => {
                   if (!response.ok) {
                     throw new Error('Failed to delete employee');
                   }
-                  // 성공적으로 삭제되면 페이지를 새로고침합니다.
+                  // 성공적으로 삭제되면 사용자에게 알림을 표시하고, 필요한 경우 페이지를 새로고침합니다.
+                  alert("사원이 성공적으로 삭제되었습니다.");
                   location.reload();
                 })
                 .catch(error => {
                   console.error('Error:', error);
-                  // 삭제에 실패한 경우 사용자에게 알립니다.
-                  alert('Employee deletion failed.');
+                  alert('Employee deletion failed.'); // 삭제에 실패한 경우 사용자에게 알립니다.
                 });
             }
           }
+          
           function hideAllSections() {
             document.getElementById("personalDetailsSection").style.display = "none";
             document.getElementById("workDetailsSection").style.display = "none";
@@ -517,6 +661,53 @@
               });
             });
           });
+
+          //이름으로 목록
+          function searchEmployeesWithName() {
+            const name = document.getElementById("nameInput").value;
+            fetch(`/api/employees/name/${name}`, {
+              method: 'GET',
+              headers: { 'Accept': 'application/json' }
+            })
+              .then(response => response.ok ? response.json() : Promise.reject('Failed to load'))
+              .then(data => showPopupWithData(data.data))
+              .catch(error => console.error('Error:', error));
+          }
+
+          function showPopupWithData(employees) {
+            const popupWindow = window.open("", "PopupWindow", "width=1000,height=600,scrollbars=yes");
+            const doc = popupWindow.document;
+
+            let htmlContent = `<html><head><title>Employee Search Results</title><style>tr { cursor: pointer; } tr.clicked { background-color: #f0f0f0; }</style></head><body>`;
+            htmlContent += `<table border="1" style="width:100%"><thead><tr><th>사번</th><th>이름</th><th>부서</th><th>직급</th><th>직책</th><th>근무지</th><th>고용형태</th><th>입사일</th><th>퇴사유형</th></tr></thead><tbody>`;
+
+            employees.forEach((employee, index) => {
+              htmlContent += `<tr id="row${index}">
+<td>${employee.companyId}</td><td>${employee.name}</td><td>${employee.department}</td><td>${employee.position}</td>
+<td>${employee.positionLank}</td><td>${employee.workLocation}</td><td>${employee.employmentType}</td>
+<td>${employee.joiningDate}</td><td>${employee.resignationType}</td></tr>`;
+            });
+
+            htmlContent += `</tbody></table></body></html>`;
+
+            doc.write(htmlContent);
+            doc.close();
+
+            // 클릭 이벤트 리스너 직접 추가
+            employees.forEach((employee, index) => {
+              const row = doc.getElementById(`row${index}`);
+              row.onclick = () => {
+                row.classList.toggle('clicked'); // 배경색 변경
+                if (window.opener && window.opener.document.getElementById('companyIDInput')) {
+                  window.opener.document.getElementById('companyIDInput').value = employee.companyId; // 부모 창의 companyIDInput 필드에 사번 설정
+                  // window.close(); // 선택적: 값을 설정한 후 팝업 창을 닫습니다. 필요에 따라 주석 처리하거나 제거하세요.
+                } else {
+                  console.error("Cannot access companyIDInput in the opener window.");
+                }
+              };
+            });
+          }
+
         </script>
 
 </body>
