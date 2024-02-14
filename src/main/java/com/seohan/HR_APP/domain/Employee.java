@@ -4,6 +4,7 @@ import com.seohan.HR_APP.domain.enumType.*;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Internal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.antlr.v4.runtime.misc.NotNull;
 
@@ -19,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Slf4j
-public class Employee {
+public class Employee extends TimeAuditing {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,8 +30,14 @@ public class Employee {
     })
     private Department department; // 부서
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<TrainingHistory> trainingList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<RewardPenaltyHistory> RewardPenaltyList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<InternalHistory> internalHistoryList = new ArrayList<>();
 
     @Id
     @Column(name = "company_id")
