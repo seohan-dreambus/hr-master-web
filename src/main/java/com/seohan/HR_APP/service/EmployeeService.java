@@ -2,11 +2,14 @@ package com.seohan.HR_APP.service;
 
 import com.seohan.HR_APP.domain.Department;
 import com.seohan.HR_APP.domain.Employee;
+import com.seohan.HR_APP.domain.enumType.UserAuthority;
+import com.seohan.HR_APP.dto.LoginRequestDTO;
 import com.seohan.HR_APP.dto.employee.CreateEmployeeRequestDTO;
 import com.seohan.HR_APP.dto.employee.UpdateEmployeeRequestDTO;
 import com.seohan.HR_APP.repository.DepartmentRepository;
 import com.seohan.HR_APP.repository.EmployeeRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.security.auth.message.AuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +28,18 @@ public class EmployeeService {
     private final DepartmentRepository departmentRepo;
     private final PasswordEncoder passwordEncoder;
 
+    public Employee login(LoginRequestDTO loginDTO) throws AuthException {
+        Employee employee = repo.findById(loginDTO.getCompanyId())
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 사원입니다."));
+
+        //ADMIN 만 로그인 가능
+        if(employee.getUserAuthority() == UserAuthority.ADMIN){
+            //비밀번호 일치 확인
+            if(passwordEncoder.matches(loginDTO.getPassword(), employee.getPassword())) return employee;
+            else throw new AuthException("사원번호와 비밀번호가 일치하지 않습니다.");
+        }
+        else throw new AuthException("권한이 없습니다.");
+    }
     @Transactional
     public Employee create(CreateEmployeeRequestDTO requestDTO) {
         //부서 세팅

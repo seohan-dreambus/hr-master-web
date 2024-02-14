@@ -14,7 +14,10 @@ public class WebController {
     }
 
     @GetMapping("/")
-    public String mainPage(){
+    public String firstPage(){
         return "first";
     }
+
+    @GetMapping("/main")
+    public String mainPage() { return "main"; }
 }

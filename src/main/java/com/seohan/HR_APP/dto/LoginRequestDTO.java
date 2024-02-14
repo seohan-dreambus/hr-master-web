@@ -7,7 +7,7 @@ import lombok.Data;
 public class LoginRequestDTO {
 
     @NotBlank
-    private String companyCode;
+    private String companyId;
 
     @NotBlank
     private String password;
