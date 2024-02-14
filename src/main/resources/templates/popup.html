@@ -57,23 +57,25 @@
       employees.forEach(employee => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${employee.companyId}</td>
-          <td>${employee.name}</td>
-          <td>${employee.department}</td>
-          <td>${employee.positionLank}</td>
-          <td>${employee.position}</td>
-        `;
+      <td>${employee.companyId}</td>
+      <td>${employee.name}</td>
+      <td>${employee.department}</td>
+      <td>${employee.positionLank}</td>
+      <td>${employee.position}</td>
+    `;
         // 더블클릭 이벤트 리스너 추가
         console.log("Adding dblclick event listener to row", employee.companyId);
         row.addEventListener('dblclick', function () {
           console.log("Row double-clicked:", employee.companyId);
+          // 부모 창으로 메시지 전송
           window.opener.postMessage({ type: "EMPLOYEE_ID", companyId: employee.companyId }, "*");
+          // 현재 팝업 창 닫기
+          window.close();
         });
         document.querySelector("#employeesTable tbody").appendChild(row);
       });
     });
     if (window.opener && typeof window.opener.testOpenerFunction === 'function') {
-      window.opener.testOpenerFunction();
     } else {
       console.log("window.opener is not available or testOpenerFunction is not defined");
     }
