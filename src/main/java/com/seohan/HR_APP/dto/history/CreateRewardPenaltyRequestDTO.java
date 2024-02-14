@@ -30,10 +30,6 @@ public class CreateRewardPenaltyRequestDTO {
     @NotNull
     private IssueGrade issueGrade;
 
-    public String getCompanyId() {
-        return companyId;
-    }
-
     public RewardPenaltyHistory toEntity(Employee employee) {
         return RewardPenaltyHistory.builder()
                 .employee(employee)

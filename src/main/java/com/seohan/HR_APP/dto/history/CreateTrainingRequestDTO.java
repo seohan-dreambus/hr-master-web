@@ -31,10 +31,6 @@ public class CreateTrainingRequestDTO {
 
     private String trainingContent;
 
-    public String getCompanyId() {
-        return companyId;
-    }
-
     public TrainingHistory toEntity(Employee employee) {
         return TrainingHistory.builder()
                 .employee(employee)
