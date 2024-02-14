@@ -13,12 +13,12 @@
       /* 글자 색상을 검정으로 변경 */
     }
 
-    /* 등록 삭제 버튼*/
+    /* 등록 삭제 버튼
     .btn-custom {
       width: 60px;
       height: 40px;
       font-size: 15px;
-    }
+    }*/
 
     .card-header,
     .card-body {
@@ -208,15 +208,17 @@
       <div class="container">
         <div class="row">
           <div class="col-12 d-flex justify-content-end">
-            <button type="button" class="btn btn-outline-danger btn-sm btn-custom"
-              onclick="showConfirmation()">삭제</button>
+            <button type="button" class="btn btn-outline-warning" style="margin-right: 10px;">수정</button>
+            <button type="button" class="btn btn-outline-danger btn-custom" style="margin-right: 10px; display:none;"
+              id="deleteButton" onclick="showConfirmation()">삭제</button>
+            <button type="button" class="btn btn-outline-info" style="margin-right: 10px;"
+              onclick="registerEmployee()">사원등록</button>
+            <button type="button" class="btn btn-outline-primary btn-custom" onclick="saveEmployeeData()">등록</button>
           </div>
         </div>
       </div>
 
-      <div>
-        <button type="button" class="btn btn-outline-primary btn-custom" onclick="saveEmployeeData()">등록</button>
-      </div>
+
 
 
     </div>
@@ -310,16 +312,28 @@
         <div class="col-md-3">
           <div class="info-section">
             <label for="employmentType" class="info-title"><span class="required">*</span>입사 구분</label>
-            <input type="text" id="employmentType" class="info-content form-control" value="">
+            <select id="employmentType" class="info-content form-control">
+              <option selected disabled>선택하세요</option>
+              <option value="신입">신입</option>
+              <option value="경력">경력</option>
+              <option value="인턴">인턴</option>
+              <option value="계약직">계약직</option>
+            </select>
           </div>
+
           <div class="info-section">
             <label for="joiningDate" class="info-title"><span class="required">*</span>입사 일자</label>
             <input type="date" id="joiningDate" class="info-content form-control" value="">
           </div>
           <div class="info-section">
             <label for="resignationType" class="info-title">퇴사 구분</label>
-            <input type="text" id="resignationType" class="info-content form-control" value="">
+            <select id="resignationType" class="info-content form-control">
+              <option selected disabled>선택하세요</option>
+              <option value="재직">재직</option>
+              <option value="퇴사">퇴사</option>
+            </select>
           </div>
+
         </div>
       </div>
 
@@ -536,12 +550,35 @@
                 document.getElementById("isHighPerformance").value = employeeData.isHighPerformance !== null ? employeeData.isHighPerformance.toString() : 'false';
                 document.getElementById("isOverseasAssignment").value = employeeData.isOverseasAssignment !== null ? employeeData.isOverseasAssignment.toString() : 'false';
                 document.getElementById("isUnionMember").value = employeeData.isUnionMember !== null ? employeeData.isUnionMember.toString() : 'false';
+                document.querySelector("div > div").innerHTML = "사원 정보 조회/수정";
+                document.querySelectorAll(".info-title").forEach(element => {
+                  element.style.backgroundColor = "blue"; // 파란색으로 변경
+                  element.style.color = "white"; // 텍스트 색상을 흰색으로 변경
+                });
+                document.querySelector(".btn-custom").style.display = "block";
               })
               .catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred while fetching the employee data');
               });
           }
+
+          document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("registerEmployeeButton").addEventListener("click", function () {
+              // 제목을 '인사 정보 등록'으로 변경
+              document.querySelector("div > div").innerHTML = "인사 정보 등록";
+
+              // info-title의 색상을 원래대로 복원
+              document.querySelectorAll(".info-title").forEach(element => {
+                element.style.backgroundColor = "#fdf4f8"; // 원래의 배경색
+                element.style.color = "black"; // 원래의 텍스트 색상
+              });
+
+              // 삭제 버튼 숨김
+              document.querySelector(".btn-custom").style.display = "none";
+            });
+          });
+
           // '등록' 버튼을 클릭했을 때 실행되는 함수
           function saveEmployeeData() {
             // 필수 입력 필드 리스트
@@ -682,50 +719,41 @@
             });
           });
 
-          //이름으로 목록
+          //팝업
           function searchEmployeesWithName() {
             const name = document.getElementById("nameInput").value;
+            if (!name.trim()) {
+              alert("사원 이름을 입력해 주세요.");
+              return;
+            }
+
+            // API 호출
             fetch(`/api/employees/name/${name}`, {
               method: 'GET',
               headers: { 'Accept': 'application/json' }
             })
-              .then(response => response.ok ? response.json() : Promise.reject('Failed to load'))
-              .then(data => showPopupWithData(data.data))
-              .catch(error => console.error('Error:', error));
-          }
-
-          function showPopupWithData(employees) {
-            const popupWindow = window.open("", "PopupWindow", "width=1000,height=600,scrollbars=yes");
-            const doc = popupWindow.document;
-
-            let htmlContent = `<html><head><title>Employee Search Results</title><style>tr { cursor: pointer; } tr.clicked { background-color: #f0f0f0; }</style></head><body>`;
-            htmlContent += `<table border="1" style="width:100%"><thead><tr><th>사번</th><th>이름</th><th>부서</th><th>직급</th><th>직책</th><th>근무지</th><th>고용형태</th><th>입사일</th><th>퇴사유형</th></tr></thead><tbody>`;
-
-            employees.forEach((employee, index) => {
-              htmlContent += `<tr id="row${index}">
-<td>${employee.companyId}</td><td>${employee.name}</td><td>${employee.department}</td><td>${employee.position}</td>
-<td>${employee.positionLank}</td><td>${employee.workLocation}</td><td>${employee.employmentType}</td>
-<td>${employee.joiningDate}</td><td>${employee.resignationType}</td></tr>`;
-            });
-
-            htmlContent += `</tbody></table></body></html>`;
-
-            doc.write(htmlContent);
-            doc.close();
-
-            // 클릭 이벤트 리스너 직접 추가
-            employees.forEach((employee, index) => {
-              const row = doc.getElementById(`row${index}`);
-              row.onclick = () => {
-                row.classList.toggle('clicked'); // 배경색 변경
-                if (window.opener && window.opener.document.getElementById('companyIDInput')) {
-                  window.opener.document.getElementById('companyIDInput').value = employee.companyId; // 부모 창의 companyIDInput 필드에 사번 설정
-                  // window.close(); // 선택적: 값을 설정한 후 팝업 창을 닫습니다. 필요에 따라 주석 처리하거나 제거하세요.
-                } else {
-                  console.error("Cannot access companyIDInput in the opener window.");
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
                 }
-              };
-            });
+                return response.json();
+              })
+              .then(data => {
+                openEmployeePopupAndSendData(data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert('사원 정보를 불러오는 데 실패했습니다.');
+              });
+          }
+          function openEmployeePopupAndSendData(employeesData) {
+            // 팝업 창을 열고, 참조를 변수에 저장합니다.
+            const popupWindow = window.open('popup.html', 'EmployeeSearchResults', 'width=1000,height=600,scrollbars=yes');
+            // 팝업 창이 로드되었을 때 데이터를 전송합니다.
+            popupWindow.onload = function () {
+              // 팝업 창으로 데이터를 전송합니다.
+              popupWindow.postMessage({ employees: employeesData }, "*");
+            };
           }
 
         </script>

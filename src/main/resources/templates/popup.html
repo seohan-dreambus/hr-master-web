@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>사원 검색 결과</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  tr:hover {
+    background-color: #f0f0f0;
+  }
+</style>
+</head>
+<body>
+<h2>사원 검색 결과</h2>
+<table id="employeesTable">
+  <thead>
+    <tr>
+      <th>사번</th>
+      <th>이름</th>
+      <th>부서</th>
+      <th>직급</th>
+      <th>직책</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 자바스크립트를 통해 사원 데이터 삽입 -->
+  </tbody>
+</table>
+<script>
+// 팝업 창이 로드되면 메시지 수신 리스너 등록
+window.addEventListener('message', function(event) {
+  // 여기서는 출처 검증을 생략했으나, 실제 애플리케이션에서는 출처를 확인하는 것이 좋습니다.
+  const employees = event.data.employees;
+  const tableBody = document.querySelector("#employeesTable tbody");
+  tableBody.innerHTML = ''; // 기존 내용을 지우고 새로운 데이터로 채웁니다.
+  employees.forEach(employee => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${employee.companyId}</td>
+      <td>${employee.name}</td>
+      <td>${employee.department}</td>
+      <td>${employee.positionLank}</td> <!-- 직급 -->
+      <td>${employee.position}</td> <!-- 직책 -->
+    `;
+    row.addEventListener('dblclick', function() {
+      window.opener.postMessage({ type: "EMPLOYEE_ID", companyId: employee.companyId }, "*");
+      window.close();
+    });
+    tableBody.appendChild(row);
+  });
+});
+</script>
+</body>
+</html>
