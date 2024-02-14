@@ -11,6 +11,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthInterceptor())
-                .addPathPatterns("/api/**"); // 세션을 검사할 경로
+                .addPathPatterns("/main"); // 세션을 검사할 경로
     }
 }

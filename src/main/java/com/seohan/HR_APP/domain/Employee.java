@@ -4,7 +4,6 @@ import com.seohan.HR_APP.domain.enumType.*;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Internal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.antlr.v4.runtime.misc.NotNull;
 

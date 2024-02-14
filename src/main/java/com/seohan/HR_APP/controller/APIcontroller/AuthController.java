@@ -1,5 +1,6 @@
 package com.seohan.HR_APP.controller.APIcontroller;
 
+import com.seohan.HR_APP.SessionConst;
 import com.seohan.HR_APP.domain.Employee;
 import com.seohan.HR_APP.dto.LoginRequestDTO;
 import com.seohan.HR_APP.dto.ResponseDTO;
@@ -25,7 +26,7 @@ public class AuthController {
 
         // 성공 시 세션에 사용자 정보 저장
         HttpSession session = req.getSession();
-        session.setAttribute("loginCompanyId", loginDTO.getCompanyId());
+        session.setAttribute(SessionConst.LOGIN_EMPLOYEE, loginDTO.getCompanyId());
         return new ResponseDTO<>(null, "로그인 성공");
     }
 
