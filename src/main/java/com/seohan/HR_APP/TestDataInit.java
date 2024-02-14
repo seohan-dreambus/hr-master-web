@@ -44,9 +44,39 @@ public class TestDataInit {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
         JdbcDrepo.insertUpperDepartment("202402121", "D20ITM", "IT Planning", "IT기획");
+        JdbcDrepo.insertUpperDepartment("2024021211", "D20BS", "Management Strategy", "경영전략");
+        JdbcDrepo.insertUpperDepartment("2024021212", "D20MK", "Marketing", "마케팅");
+        JdbcDrepo.insertUpperDepartment("2024021213", "D20PM", "Production Management", "생산관리");
+        JdbcDrepo.insertUpperDepartment("2024021214", "D20SL", "Sales", "영업");
+        JdbcDrepo.insertUpperDepartment("2024021215", "D20HR", "HR", "인사");
+        JdbcDrepo.insertUpperDepartment("2024021216", "D20AC", "Accounting", "회계");
+        JdbcDrepo.insertUpperDepartment("2024021217", "D20IT", "IT Operations", "IT운영");
+
         JdbcDrepo.insertSubDepartment("202402121","D20ITM", "202402122", "D20ITM", "IT Planning Team1", "IT기획 1팀");
         JdbcDrepo.insertSubDepartment("202402121","D20ITM", "202402123", "D20ITM", "IT Planning Team2", "IT기획 2팀");
         JdbcDrepo.insertSubDepartment("202402121","D20ITM", "202402124", "D20ITM", "IT Planning Team3", "IT기획 3팀");
+
+        // 나머지 부서의 하위 팀 추가
+        JdbcDrepo.insertSubDepartment("2024021211", "D20BS", "202402124", "D20BS", "Management Strategy Team1", "경영전략 1팀");
+        JdbcDrepo.insertSubDepartment("2024021211", "D20BS", "202402125", "D20BS", "Management Strategy Team2", "경영전략 2팀");
+
+        JdbcDrepo.insertSubDepartment("2024021212", "D20MK", "202402126", "D20MK", "Marketing Team1", "마케팅 1팀");
+        JdbcDrepo.insertSubDepartment("2024021212", "D20MK", "202402127", "D20MK", "Marketing Team2", "마케팅 2팀");
+
+        JdbcDrepo.insertSubDepartment("2024021213", "D20PM", "202402128", "D20PM", "Production Management Team1", "생산관리 1팀");
+        JdbcDrepo.insertSubDepartment("2024021213", "D20PM", "202402129", "D20PM", "Production Management Team2", "생산관리 2팀");
+
+        JdbcDrepo.insertSubDepartment("2024021214", "D20SL", "202402130", "D20SL", "Sales Team1", "영업 1팀");
+        JdbcDrepo.insertSubDepartment("2024021214", "D20SL", "202402131", "D20SL", "Sales Team2", "영업 2팀");
+
+        JdbcDrepo.insertSubDepartment("2024021215", "D20HR", "202402132", "D20HR", "HR Team1", "인사 1팀");
+        JdbcDrepo.insertSubDepartment("2024021215", "D20HR", "202402133", "D20HR", "HR Team2", "인사 2팀");
+
+        JdbcDrepo.insertSubDepartment("2024021216", "D20AC", "202402134", "D20AC", "Accounting Team1", "회계 1팀");
+        JdbcDrepo.insertSubDepartment("2024021216", "D20AC", "202402135", "D20AC", "Accounting Team2", "회계 2팀");
+
+        JdbcDrepo.insertSubDepartment("2024021217", "D20IT", "202402136", "D20IT", "IT Operations Team1", "IT운영 1팀");
+        JdbcDrepo.insertSubDepartment("2024021217", "D20IT", "202402137", "D20IT", "IT Operations Team2", "IT운영 2팀");
 
         Employee employee = Employee.builder()
                 .password(passwordEncoder.encode("1234"))
