@@ -21,7 +21,6 @@ import java.util.List;
 @Slf4j
 public class Employee extends TimeAuditing {
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "department_change_id", referencedColumnName = "department_change_id"),
@@ -43,37 +42,32 @@ public class Employee extends TimeAuditing {
     private String companyId; //auto import 아님
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "user_authority")
+    @Column(name = "user_authority", nullable = false)
     private UserAuthority userAuthority; // 권한
 
-    @NotNull
+    @Column(nullable = false)
     private String password; //비밀번호
 
     // 인적사항
-    @NotNull
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name; //이름
 
-    @NotNull
-    @Column(name = "english_name")
+    @Column(name = "english_name", nullable = false)
     private String englishName; //영어이름
 
-    @NotNull
-    @Column(name = "personal_number")
+    @Column(name = "personal_number", nullable = false)
     private String personalNumber; // 주민번호
 
-    @NotNull
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber; //휴대폰 번호
 
     @Column(name = "home_phone_number")
     private String homePhoneNumber;//자택 전화번호(비상연락망)
 
-    @NotNull
-    @Column(name = "is_military")
+    @Column(name = "is_military", nullable = false)
     private Boolean isMilitary; //군필
 
-    @NotNull
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private NationalityType nationality; //국적
 
@@ -83,27 +77,22 @@ public class Employee extends TimeAuditing {
     @Column(name = "wedding_day")
     private Date weddingDay;// 결혼 기념일
 
-    @NotNull
-    @Column(name = "home_address")
+    @Column(name = "home_address", nullable = false)
     private String homeAddress;// 실거주지 주소
 
-    @NotNull
-    @Column(name = "detail_address")
+    @Column(name = "detail_address", nullable = false)
     private String detailAddress;// 상세주소
 
     //회사 근무사항
-    @NotNull
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "employment_type")
+    @Column(name = "employment_type", nullable = false)
     private EmploymentType employmentType;// 입사구분
 
-    @NotNull
-    @Column(name = "joining_date")
+    @Column(name = "joining_date", nullable = false)
     private Date joiningDate;// 입사 날짜
 
-    @NotNull
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "user_status")
+    @Column(name = "resignation_type", nullable = false)
     private ResignationType resignationType; //퇴사 타입 (재직/퇴사/휴직)
 
     @Column(name = "resignation_date")
@@ -113,20 +102,18 @@ public class Employee extends TimeAuditing {
     private String resignationReason;// 퇴사 사유
 
     @Column(name = "resignation_amount")
-    private String resignationAmount;// 퇴사 금액
+    private Integer resignationAmount;// 퇴사 금액
 
-    @NotNull
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "work_location")
+    @Column(name = "work_location", nullable = false)
     private WorkLocationType workLocation;// 근무지
 
-    @NotNull
     @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
     private PositionType position;// 직책
 
-    @NotNull
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "position_lank")
+    @Column(name = "position_lank", nullable = false)
     private PositionLankType positionLank;// 직급
 
     @Column(name = "internal_phone")
@@ -135,27 +122,22 @@ public class Employee extends TimeAuditing {
     @Column(name = "internal_email")
     private String internalEmail;// 사내메일
 
-    @NotNull
-    @Column(name = "is_high_performance")
+    @Column(name = "is_high_performance", nullable = false)
     private Boolean isHighPerformance;// 고과여부
 
-    @NotNull
-    @Column(name = "is_union_member")
+    @Column(name = "is_union_member", nullable = false)
     private Boolean isUnionMember;// 조합원 여부
 
-    @NotNull
-    @Column(name = "is_overseas_assignment")
+    @Column(name = "is_overseas_assignment", nullable = false)
     private Boolean isOverseasAssignment;// 해외파견 여부
 
-    private ShiftType shift;// 근무조
-
-    public void encodePassword(PasswordEncoder passwordEncoder){
+    public void encodePassword(PasswordEncoder passwordEncoder) {
         password = passwordEncoder.encode(password);
     }
 
     //생성자
     @Builder
-    public Employee(Department department, String password, String name, String englishName, String personalNumber, String phoneNumber, String homePhoneNumber, Boolean isMilitary, NationalityType nationality, Boolean isMartial, Date weddingDay, String homeAddress, String detailAddress, EmploymentType employmentType, Date joiningDate, ResignationType resignationType, Date resignationDate, String resignationReason, String resignationAmount, WorkLocationType workLocation, PositionType position, PositionLankType positionLank, String internalPhone, String internalEmail, Boolean isHighPerformance, Boolean isUnionMember, Boolean isOverseasAssignment, ShiftType shift) {
+    public Employee(Department department, String password, String name, String englishName, String personalNumber, String phoneNumber, String homePhoneNumber, Boolean isMilitary, NationalityType nationality, Boolean isMartial, Date weddingDay, String homeAddress, String detailAddress, EmploymentType employmentType, Date joiningDate, ResignationType resignationType, Date resignationDate, String resignationReason, Integer resignationAmount, WorkLocationType workLocation, PositionType position, PositionLankType positionLank, String internalPhone, String internalEmail, Boolean isHighPerformance, Boolean isUnionMember, Boolean isOverseasAssignment) {
         this.companyId = createCompanyId();
         this.userAuthority = UserAuthority.ADMIN;
         setDepartment(department);
@@ -186,7 +168,6 @@ public class Employee extends TimeAuditing {
         this.isHighPerformance = isHighPerformance;
         this.isUnionMember = isUnionMember;
         this.isOverseasAssignment = isOverseasAssignment;
-        this.shift = shift;
     }
 
     private String createCompanyId() {
@@ -272,7 +253,7 @@ public class Employee extends TimeAuditing {
         this.resignationReason = resignationReason;
     }
 
-    public void updateResignationAmount(String resignationAmount) {
+    public void updateResignationAmount(Integer resignationAmount) {
         this.resignationAmount = resignationAmount;
     }
 
@@ -308,7 +289,4 @@ public class Employee extends TimeAuditing {
         isOverseasAssignment = overseasAssignment;
     }
 
-    public void updateShift(ShiftType shift) {
-        this.shift = shift;
-    }
 }

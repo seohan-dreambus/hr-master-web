@@ -66,7 +66,7 @@ public class ReadEmployeeResponseDTO {
 
     private String resignationReason;// 퇴사 사유
 
-    private String resignationAmount;// 퇴사 금액
+    private Integer resignationAmount;// 퇴사 금액
 
     @NotNull
     private WorkLocationType workLocation;// 근무지
@@ -92,8 +92,6 @@ public class ReadEmployeeResponseDTO {
 
     @NotBlank
     private Boolean isOverseasAssignment;// 해외파견 여부
-
-    private ShiftType shift;// 근무조
 
     public ReadEmployeeResponseDTO(Employee findEmployee) {
         this.companyId = findEmployee.getCompanyId();
@@ -122,7 +120,6 @@ public class ReadEmployeeResponseDTO {
         this.isHighPerformance = findEmployee.getIsHighPerformance();
         this.isUnionMember = findEmployee.getIsUnionMember();
         this.isOverseasAssignment = findEmployee.getIsOverseasAssignment();
-        this.shift = findEmployee.getShift();
 
         // 부서명 LAZY 로딩
         this.department = findEmployee.getDepartment().getDepartmentName();

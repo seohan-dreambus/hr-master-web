@@ -28,8 +28,6 @@ public class InternalHistory {
     @Column(name = "change_time", nullable = false)
     private LocalDateTime changeTime;
 
-    //TODO 근무지
-
     @Column(name = "department", nullable = false)
     private String department;
 

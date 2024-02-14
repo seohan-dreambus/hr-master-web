@@ -48,27 +48,6 @@ public class TestDataInit {
         JdbcDrepo.insertSubDepartment("202402121","D20ITM", "202402123", "D20ITM", "IT Planning Team2", "IT기획 2팀");
         JdbcDrepo.insertSubDepartment("202402121","D20ITM", "202402124", "D20ITM", "IT Planning Team3", "IT기획 3팀");
 
-//        Department.DepartmentId id = new Department.DepartmentId("202402121","D20ITM");
-//        Department upperDepartment = Department.builder()
-//                .departmentId(id)
-//                .departmentName("IT기획")
-//                .departmentEnglishName("IT Planner")
-//                .upperDepartment(null)
-//                .isLeafNode(false)
-//                .build();
-//
-//        Department.DepartmentId id2 = new Department.DepartmentId("202402122","D20ITM");
-//        Department subDepartment = Department.builder()
-//                .departmentId(id2)
-//                .departmentName("IT기획 1팀")
-//                .departmentEnglishName("IT Planner team 1")
-//                .upperDepartment(upperDepartment)
-//                .isLeafNode(true)
-//                .build();
-//
-//        Drepo.save(upperDepartment);
-//        Drepo.save(subDepartment);
-
         Employee employee = Employee.builder()
                 .password(passwordEncoder.encode("1234"))
                 .name("홍길동")
@@ -85,7 +64,9 @@ public class TestDataInit {
                 .workLocation(WorkLocationType.서울) // 근무지 예시
                 .position(PositionType.매니저) // 직책 예시
                 .positionLank(PositionLankType.사원) // 직급 예시
-                .shift(ShiftType.주간)
+                .isHighPerformance(false)
+                .isOverseasAssignment(false)
+                .isUnionMember(false)
                 .build();
 
         Department.DepartmentId id = new Department.DepartmentId("202402122", "D20ITM");
@@ -113,8 +94,6 @@ public class TestDataInit {
 
         THrepo.save(th);
         THrepo.save(th2);
-
-
 
         InternalHistory ih = InternalHistory.builder()
                 .changeReason("승진")
@@ -161,7 +140,6 @@ public class TestDataInit {
 
         RPHrepo.save(rph);
         RPHrepo.save(rph2);
-
 
     }
 }

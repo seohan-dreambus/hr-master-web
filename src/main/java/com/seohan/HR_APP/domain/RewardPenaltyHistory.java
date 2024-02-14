@@ -23,11 +23,9 @@ public class RewardPenaltyHistory {
     @JoinColumn(name = "company_id")
     private Employee employee;
 
-    @NotNull
     @Column(name = "issue_type", nullable = false)
     private Boolean issueType; //true:상, false:벌
 
-    @NotNull
     @Column(name = "issue_date", nullable = false)
     private LocalDate issueDate;
 

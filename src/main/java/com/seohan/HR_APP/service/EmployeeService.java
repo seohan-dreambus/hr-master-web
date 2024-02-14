@@ -92,7 +92,6 @@ public class EmployeeService {
         if (updateDTO.getIsHighPerformance() != null) employee.updateHighPerformance(updateDTO.getIsHighPerformance());
         if (updateDTO.getIsUnionMember() != null) employee.updateUnionMember(updateDTO.getIsUnionMember());
         if (updateDTO.getIsOverseasAssignment() != null) employee.updateOverseasAssignment(updateDTO.getIsOverseasAssignment());
-        if (updateDTO.getShift() != null) employee.updateShift(updateDTO.getShift());
 
         //부서 수정
         if (updateDTO.getDepartment() != null){

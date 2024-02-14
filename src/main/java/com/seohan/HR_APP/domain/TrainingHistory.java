@@ -21,17 +21,17 @@ public class TrainingHistory {
     @JoinColumn(name = "company_id")
     private Employee employee;
 
-    @Column(name = "traning_type", nullable = false, length = 20)
+    @Column(name = "training_type", nullable = false, length = 20)
     @Enumerated(value = EnumType.STRING)
     private TrainingType trainingType;
 
-    @Column(name = "traning_date", nullable = false)
+    @Column(name = "training_date", nullable = false)
     private Date trainingDate;
 
-    @Column(name = "traning_name", nullable = false, length = 50)
+    @Column(name = "training_name", nullable = false, length = 50)
     private String trainingName;
 
-    @Column(name = "traning_content")
+    @Column(name = "training_content")
     private String trainingContent;
 
     public void setEmployee(Employee employee){

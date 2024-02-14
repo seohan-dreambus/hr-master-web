@@ -60,7 +60,7 @@ public class UpdateEmployeeRequestDTO {
 
     private String resignationReason;// 퇴사 사유
 
-    private String resignationAmount;// 퇴사 금액
+    private Integer resignationAmount;// 퇴사 금액
 
     @NotNull
     private WorkLocationType workLocation;// 근무지
@@ -87,5 +87,4 @@ public class UpdateEmployeeRequestDTO {
     @NotNull
     private Boolean isOverseasAssignment;// 해외파견 여부
 
-    private ShiftType shift;// 근무조
 }

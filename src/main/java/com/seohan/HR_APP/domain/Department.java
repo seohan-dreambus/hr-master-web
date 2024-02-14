@@ -19,13 +19,13 @@ public class Department {
     @EmbeddedId
     private DepartmentId id; //복합 키
 
-    @Column(name = "department_name")
+    @Column(name = "department_name", nullable = false)
     private String departmentName; // 부서명
 
-    @Column(name = "department_english_name")
+    @Column(name = "department_english_name", nullable = false)
     private String departmentEnglishName; // 부서 영어명
 
-    @Column(name = "change_date")
+    @Column(name = "change_date", nullable = false)
     private Date changeDate;// 개편날짜(생성날짜)
 
     /** 상위 부서 */
@@ -54,10 +54,10 @@ public class Department {
     public static class DepartmentId implements Serializable {
 
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "department_change_id")
+        @Column(name = "department_change_id", nullable = false)
         private String departmentChangeId; //날짜+채번 202402110001
 
-        @Column(name = "department_code")
+        @Column(name = "department_code", nullable = false)
         private String departmentCode;
         public DepartmentId(String departmentChangeId, String departmentCode) {
             this.departmentChangeId = departmentChangeId;

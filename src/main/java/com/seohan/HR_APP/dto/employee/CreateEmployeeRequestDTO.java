@@ -67,7 +67,7 @@ public class CreateEmployeeRequestDTO {
 
     private String resignationReason;// 퇴사 사유
 
-    private String resignationAmount;// 퇴사 금액
+    private Integer resignationAmount;// 퇴사 금액
 
     @NotNull
     private WorkLocationType workLocation;// 근무지
@@ -93,8 +93,6 @@ public class CreateEmployeeRequestDTO {
 
     @NotNull
     private Boolean isOverseasAssignment;// 해외파견 여부
-
-    private ShiftType shift;// 근무조
 
     public Employee toEntity(Department department) {
         return Employee.builder()
@@ -125,7 +123,6 @@ public class CreateEmployeeRequestDTO {
                 .isHighPerformance(isHighPerformance)
                 .isUnionMember(isUnionMember)
                 .isOverseasAssignment(isOverseasAssignment)
-                .shift(shift)
                 .build();
     }
 }
