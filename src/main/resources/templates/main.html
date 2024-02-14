@@ -13,6 +13,13 @@
       /* 글자 색상을 검정으로 변경 */
     }
 
+    #penaltyDetailsSection,
+    #trainingDetailsSection,
+    #internalDetailsSection {
+      font-size: 16px;
+      font-weight: normal !important;
+    }
+
     .card-header,
     .card-body {
       background-color: white;
@@ -38,7 +45,24 @@
 
     .info-title {
       flex: 1;
-      /* 제목 부분의 기본 너비를 설정 E0F0FC D7E8F5 D3E3F6*/
+      /* 제목 부분의 기본 너비를 설정 E0F0FC D7E8F5 D1E8F9*/
+      background-color: #E0F0FC;
+      /* 배경 */
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+      /* 텍스트를 오른쪽 정렬 */
+      margin-right: 10px;
+      /* 제목과 내용 사이의 간격 */
+      min-width: 100px;
+      border-radius: 6px;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+
+    .Table-title {
+      flex: 1;
+      /* 제목 부분의 기본 너비를 설정 E0F0FC D7E8F5 D1E8F9*/
       background-color: #E0F0FC;
       /* 배경 */
       padding: 10px;
@@ -145,9 +169,10 @@
     }
 
     .row {
-    display: flex;
-    flex-wrap: wrap; /* 요소들이 넘칠 경우 줄 바꿈 */
-  }
+      display: flex;
+      flex-wrap: wrap;
+      /* 요소들이 넘칠 경우 줄 바꿈 */
+    }
 
     body {
       background-color: #4664a6;
@@ -345,8 +370,8 @@
         <div class="col-md-3">
           <div class="info-section">
             <label for="employmentType" class="info-title"><span class="required">*</span>입사 구분</label>
-            <select id="employmentType" class="info-content form-control">
-              <option selected disabled>선택하세요</option>
+            <select id="employmentType" class="info-content form-control" disabled>
+              <option selected disabled></option>
               <option value="신입">신입</option>
               <option value="경력">경력</option>
               <option value="인턴">인턴</option>
@@ -356,7 +381,7 @@
 
           <div class="info-section">
             <label for="joiningDate" class="info-title"><span class="required">*</span>입사 일자</label>
-            <input type="date" id="joiningDate" class="info-content form-control" value="">
+            <input type="date" id="joiningDate" class="info-content form-control" value="" disabled>
           </div>
           <div class="info-section">
             <label for="resignationType" class="info-title">퇴사 구분</label>
@@ -378,13 +403,13 @@
             <button type="button" id="btnWorkDetails" class="btn btn-outline-secondary btn-block">회사근무사항</button>
           </div>
           <div class="col">
-            <button type="button" class="btn btn-outline-secondary btn-block" disabled>사내이력</button>
+            <button type="button" id="internalDetails" class="btn btn-outline-secondary btn-block">사내이력</button>
           </div>
           <div class="col">
             <button type="button" id="btnTrainingDetails" class="btn btn-outline-secondary btn-block">교육이력</button>
           </div>
           <div class="col">
-            <button type="button" class="btn btn-outline-secondary btn-block" disabled>상벌이력</button>
+            <button type="button" id="rewardDetails" class="btn btn-outline-secondary btn-block">상벌이력</button>
           </div>
         </div>
       </div>
@@ -481,7 +506,7 @@
         <!-- 회사 근무사항 섹션 -->
         <div id="workDetailsSection" class="row" style="display: none;">
           <!-- 토글 -->
-          <class="container-fluid">
+          <div class="container-fluid">
             <div class="row">
               <!-- 토글 버튼 컬럼 -->
               <div class="col-auto">
@@ -508,16 +533,16 @@
               <div class="col-md-4">
                 <div class="info-section">
                   <label for="isUnionMember" class="info-title"><span class="required">*</span>조합원</label>
-                  <select id="isUnionMember" class="info-content form-control">
-                    <option selected disabled>선택하세요</option>
+                  <select id="isUnionMember" class="info-content form-control" disabled>
+                    <option selected disabled></option>
                     <option value="해당">해당</option>
                     <option value="비해당">비해당</option>
                   </select>
                 </div>
                 <div class="info-section">
                   <label for="isHighPerformance" class="info-title"><span class="required">*</span>고과여부</label>
-                  <select id="isHighPerformance" class="info-content form-control">
-                    <option selected disabled>선택하세요</option>
+                  <select id="isHighPerformance" class="info-content form-control" disabled>
+                    <option selected disabled></option>
                     <option value="대상">대상</option>
                     <option value="비대상">비대상</option>
                   </select>
@@ -539,7 +564,7 @@
                 </div>
                 <div class="info-section">
                   <label for="severancePay" class="info-title">퇴직금금액</label>
-                  <input type="text" id="resignationAmount" class="info-content form-control">
+                  <input type="text" id="ResignationAmount" class="info-content form-control">
                 </div>
                 <div class="info-section">
                   <label for="resignationReason" class="info-title">퇴직사유</label>
@@ -547,31 +572,61 @@
                 </div>
               </div>
             </div>
+          </div>
         </div>
+
         <!--교육 이력 -->
         <div id="trainingDetailsSection" class="row" style="display: none;">
-          <div class="col-md-4">
-            <div class="info-section">
-              <label for="trainingDate" class="info-title">교육일</label>
-              <input type="date" id="trainingDate" class="info-content form-control">
-            </div>
-            <div class="info-section">
-              <label for="trainingType" class="info-title">교육구분</label>
-              <input type="text" id="trainingType" class="info-content form-control">
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="info-section">
-              <label for="trainingName" class="info-title">교육명</label>
-              <input type="text" id="trainingName" class="info-content form-control">
-            </div>
-            <div class="info-section">
-              <label for="trainingContent" class="info-title">교육내용</label>
-              <input type="text" id="trainingContent" class="info-content form-control">
-            </div>
-          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="Table-title">교육일</th>
+                <th class="Table-title">교육구분</th>
+                <th class="Table-title">교육명</th>
+                <th class="Table-title">교육내용</th>
+              </tr>
+            </thead>
+            <tbody id="trainingDetailsBody">
+              <!-- 동적으로 교육 이력 정보가 여기에 삽입됩니다 -->
+            </tbody>
+          </table>
         </div>
-        
+        <!--상벌 이력-->
+        <div id="penaltyDetailsSection" class="row" style="display: none;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="Table-title">발생일</th>
+                <th class="Table-title">유형</th>
+                <th class="Table-title">내용</th>
+                <th class="Table-title">등급</th>
+                <th class="Table-title">결과 포인트</th>
+              </tr>
+            </thead>
+            <tbody id="penaltyDetailsBody">
+              <!-- 동적으로 상벌 이력 정보가 여기에 삽입됩니다 -->
+            </tbody>
+          </table>
+        </div>
+        <!--사내이력-->
+        <div id="internalDetailsSection" class="row" style="display: none;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="Table-title">변경 사유</th>
+                <th class="Table-title">변경 시기</th>
+                <th class="Table-title">부서</th>
+                <th class="Table-title">직위</th>
+                <th class="Table-title">직급</th>
+                <th class="Table-title">담당 업무</th>
+                <th class="Table-title">비고</th>
+              </tr>
+            </thead>
+            <tbody id="internalDetailsBody">
+              <!-- 동적으로 사내 변동 이력 정보가 여기에 삽입됩니다 -->
+            </tbody>
+          </table>
+        </div>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.2/dist/umd/popper.min.js"></script>
@@ -603,6 +658,19 @@
               .then(data => {
                 // 서버 응답에서 employeeData 객체를 정확히 추출
                 const employeeData = data.data;
+                searchTraining(effectiveCompanyId);
+                searchPenalty(effectiveCompanyId); // 상벌 이력 조회 함수 호출
+                searchInternal(effectiveCompanyId); // 사내 변동 이력 조회 함수 호출
+                var employmentTypeElement = document.getElementById("employmentType");
+                if (employmentTypeElement) {
+                  var typeValue = employeeData.employmentType;
+                  if (typeValue) {
+                    employmentTypeElement.value = typeValue;
+                  } else {
+                    employmentTypeElement.selectedIndex = 0; // "선택하세요" 옵션으로 초기화
+                  }
+                }
+
 
                 // 추출된 데이터를 사용하여 입력 필드에 값 설정
                 document.getElementById("name").value = employeeData.name || '';
@@ -620,7 +688,7 @@
                 document.getElementById("employmentType").value = employeeData.employmentType || '';
                 document.getElementById("resignationType").value = employeeData.resignationType || '';
                 document.getElementById("resignationReason").value = employeeData.resignationReason || '';
-                document.getElementById("resignationAmount").value = employeeData.resignationAmount || '';
+                document.getElementById("ResignationAmount").value = employeeData.ResignationAmount || '';
                 document.getElementById("workLocation").value = employeeData.workLocation || '';
                 document.getElementById("department").value = employeeData.department || '';
                 document.getElementById("position").value = employeeData.position || '';
@@ -636,8 +704,8 @@
                 document.getElementById("pageTitle").innerText = "사원 정보 조회/수정";
                 ////서치임플로이 작동하고 나서
                 document.querySelectorAll(".info-title").forEach(element => {
-                  /* element.style.backgroundColor = "#85B7E2"; // 진한 파란색으로 변경
-                  element.style.color = "#FFFFFF"; //글자색 변경 */
+                  element.style.backgroundColor = "#D1E8F9"; // 진한 파란색으로 변경
+                  /* element.style.color = "#FFFFFF"; //글자색 변경 */
                   var selectElement = document.getElementById('resignationType'); // 퇴사 구분 select 요소를 가져옴
                   selectElement.disabled = false; // disabled 속성을 제거 (able 상태로 변경)
 
@@ -652,7 +720,7 @@
               })
               .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred while fetching the employee data');
+                alert('DB에 저장된 값 중 일부가 공백으로 저장되어 있습니다.');
               });
           }
 
@@ -664,9 +732,9 @@
 
               // info-title의 색상을 원래대로 복원
               document.querySelectorAll(".info-title").forEach(element => {
-                /* element.style.backgroundColor = "#D3E3F6"; // 원래의 배경색
-                element.style.color = "4664a6"; //글자색 변경 */
-              }); 
+                element.style.backgroundColor = "#E0F0FC"; // 원래의 배경색 E0F0FC D7E8F5 D1E8F9
+                /* element.style.color = "4664a6"; //글자색 변경 */
+              });
 
               // 삭제 버튼 숨김
               document.querySelector(".btn-custom").style.display = "none";
@@ -688,6 +756,105 @@
               document.getElementById("logoutButton").style.display = "block";
             });
           });
+
+          //*이력조회 함수*//
+          window.searchTraining = function (companyId) {
+            fetch(`/api/history/training/${companyId}`, {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json',
+              }
+            })
+              .then(response => response.json())
+              .then(data => {
+                const tbody = document.getElementById("trainingDetailsBody");
+                // 기존 행을 초기화
+                tbody.innerHTML = '';
+
+                // 데이터가 있는 경우, 각 항목을 테이블 행으로 추가
+                data.data.forEach((training) => {
+                  const row = tbody.insertRow();
+                  const trainingDateCell = row.insertCell(0);
+                  trainingDateCell.textContent = training.trainingDate;
+
+                  const trainingTypeCell = row.insertCell(1);
+                  trainingTypeCell.textContent = training.trainingType;
+
+                  const trainingNameCell = row.insertCell(2);
+                  trainingNameCell.textContent = training.trainingName;
+
+                  const trainingContentCell = row.insertCell(3);
+                  trainingContentCell.textContent = training.trainingContent;
+                });
+
+                // 데이터를 로드한 후 섹션을 보이게 설정
+                document.getElementById("trainingDetailsSection").style.display = 'block';
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          }
+
+          //상벌이력조회
+          window.searchPenalty = function (companyId) {
+            fetch(`/api/history/rewardPenalty/${companyId}`, {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json',
+              }
+            })
+              .then(response => response.json())
+              .then(data => {
+                const tbody = document.getElementById("penaltyDetailsBody"); // 상벌 이력을 표시할 테이블의 tbody ID
+                tbody.innerHTML = ''; // 기존 행 초기화
+
+                data.data.forEach((item) => {
+                  const row = tbody.insertRow();
+                  row.insertCell(0).textContent = item.issueDate;
+                  row.insertCell(1).textContent = item.issueType ? "상" : "벌"; // issueType이 true면 "상", false면 "벌"
+                  row.insertCell(2).textContent = item.issueContent;
+                  row.insertCell(3).textContent = item.issueGrade;
+                  row.insertCell(4).textContent = item.resultsPoint;
+                });
+
+                document.getElementById("penaltyDetailsSection").style.display = 'block'; // 섹션 보이게 설정
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          }
+
+          //사내이력조회
+          window.searchInternal = function (companyId) {
+            fetch(`/api/history/internal/${companyId}`, {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json',
+              }
+            })
+              .then(response => response.json())
+              .then(data => {
+                const tbody = document.getElementById("internalDetailsBody"); // 사내 변동 이력을 표시할 테이블의 tbody ID
+                tbody.innerHTML = ''; // 기존 행 초기화
+
+                data.data.forEach((change) => {
+                  const row = tbody.insertRow();
+                  row.insertCell(0).textContent = change.changeTime;
+                  row.insertCell(1).textContent = change.changeReason;
+                  row.insertCell(2).textContent = change.department;
+                  row.insertCell(3).textContent = change.position;
+                  row.insertCell(4).textContent = change.positionLank;
+                  row.insertCell(5).textContent = change.duties;
+                  row.insertCell(6).textContent = change.note;
+                });
+
+                document.getElementById("internalDetailsSection").style.display = 'block'; // 섹션 보이게 설정
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          }
+
           //'로그아웃' 버튼 클릭했을 때 실행되는 함수
           function logout() {
             let result = confirm("로그아웃 하시겠습니까?")
@@ -757,7 +924,7 @@
               homePhoneNumber: document.getElementById('homePhoneNumber') ? document.getElementById('homePhoneNumber').value : null,
               resignationDate: document.getElementById('resignationDate') ? document.getElementById('resignationDate').value : null,
               resignationReason: document.getElementById('resignationReason') ? document.getElementById('resignationReason').value : null,
-              resignationAmount: document.getElementById('resignationAmount') ? document.getElementById('resignationAmount').value : null,
+              ResignationAmount: document.getElementById('ResignationAmount') ? document.getElementById('ResignationAmount').value : null,
               // '입사 구분' 필드는 제외
             };
 
@@ -843,7 +1010,7 @@
               homePhoneNumber: document.getElementById('homePhoneNumber') ? document.getElementById('homePhoneNumber').value : null, //
               resignationDate: document.getElementById('resignationDate') ? document.getElementById('resignationDate').value : null, //
               resignationReason: document.getElementById('resignationReason') ? document.getElementById('resignationReason').value : null,//
-              resignationAmount: document.getElementById('resignationAmount') ? document.getElementById('resignationAmount').value : null,//
+              ResignationAmount: document.getElementById('ResignationAmount') ? document.getElementById('ResignationAmount').value : null,//
             };
 
             // PUT 요청 보내기
@@ -876,13 +1043,15 @@
             document.getElementById("personalDetailsSection").style.display = "none";
             document.getElementById("workDetailsSection").style.display = "none";
             document.getElementById("trainingDetailsSection").style.display = "none"; //교육이력 추가
+            document.getElementById("internalDetailsSection").style.display = "none"; // 사내이력 추가
+            document.getElementById("penaltyDetailsSection").style.display = "none"; // 상벌이력 추가
             // 추가 섹션 숨기기 구현이 필요하면 여기에 추가
           }
 
           function showSection(sectionId) {
             hideAllSections();
             const section = document.getElementById(sectionId);
-            section.style.display = "";
+            section.style.display = "block";
           }
           document.getElementById("btnPersonalDetails").addEventListener("click", function () {
             showSection("personalDetailsSection");
@@ -894,6 +1063,14 @@
 
           document.getElementById("btnTrainingDetails").addEventListener("click", function () {
             showSection("trainingDetailsSection");
+          });
+          document.getElementById("internalDetails").addEventListener("click", function () {
+            showSection("internalDetailsSection");
+          });
+
+          // 상벌이력 버튼 이벤트 리스너 추가
+          document.getElementById("rewardDetails").addEventListener("click", function () {
+            showSection("penaltyDetailsSection");
           });
 
 
