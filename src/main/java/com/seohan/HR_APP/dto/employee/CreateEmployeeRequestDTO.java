@@ -85,11 +85,11 @@ public class CreateEmployeeRequestDTO {
 
     private String internalEmail;// 사내메일
 
-    @NotNull
-    private Boolean isHighPerformance;// 고과여부
-
-    @NotNull
-    private Boolean isUnionMember;// 조합원 여부
+//    @NotNull
+//    private Boolean isHighPerformance;// 고과여부
+//
+//    @NotNull
+//    private Boolean isUnionMember;// 조합원 여부
 
     @NotNull
     private Boolean isOverseasAssignment;// 해외파견 여부
@@ -120,8 +120,8 @@ public class CreateEmployeeRequestDTO {
                 .positionLank(positionLank)
                 .internalPhone(internalPhone)
                 .internalEmail(internalEmail)
-                .isHighPerformance(isHighPerformance)
-                .isUnionMember(isUnionMember)
+                .isHighPerformance(false)
+                .isUnionMember(false)
                 .isOverseasAssignment(isOverseasAssignment)
                 .build();
     }
