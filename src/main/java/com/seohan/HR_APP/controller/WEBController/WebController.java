@@ -20,4 +20,7 @@ public class WebController {
 
     @GetMapping("/main")
     public String mainPage() { return "main"; }
+
+    @GetMapping("/popup")
+    public String popup() { return "popup";}
 }
