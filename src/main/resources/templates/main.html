@@ -788,7 +788,7 @@
                 });
 
                 // 데이터를 로드한 후 섹션을 보이게 설정
-                document.getElementById("trainingDetailsSection").style.display = 'block';
+                document.getElementById("trainingDetailsSection").style.display = 'none';
               })
               .catch(error => {
                 console.error('Error:', error);
@@ -817,7 +817,7 @@
                   row.insertCell(4).textContent = item.resultsPoint;
                 });
 
-                document.getElementById("penaltyDetailsSection").style.display = 'block'; // 섹션 보이게 설정
+                document.getElementById("penaltyDetailsSection").style.display = 'none'; // 섹션 보이게 설정
               })
               .catch(error => {
                 console.error('Error:', error);
@@ -848,7 +848,7 @@
                   row.insertCell(6).textContent = change.note;
                 });
 
-                document.getElementById("internalDetailsSection").style.display = 'block'; // 섹션 보이게 설정
+                document.getElementById("internalDetailsSection").style.display = 'none'; // 섹션 보이게 설정
               })
               .catch(error => {
                 console.error('Error:', error);
