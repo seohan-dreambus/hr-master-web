@@ -109,4 +109,8 @@ public class EmployeeService {
     public List<Employee> getEmployeeByDepartment(String departmentChangeId) {
         return repo.findAllByDepartment(departmentChangeId);
     }
+
+    public List<Employee> getEmployeeByUpperDepartment(String departmentCode) {
+        return repo.findAllByUpperDepartment(departmentCode);
+    }
 }

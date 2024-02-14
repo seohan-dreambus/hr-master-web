@@ -75,14 +75,25 @@ public class EmployeeController {
     }
 
     //부서로 목록 조회(검색)
+//    @ResponseStatus(HttpStatus.OK)
+//    @GetMapping("/api/employees/department/{departmentChangeId}")
+//    public ResponseDTO<?> getEmployeeListByDepartment(@PathVariable String departmentChangeId){
+//        final List<Employee> employeeList = employeeService.getEmployeeByDepartment(departmentChangeId);
+//        List<EmployeeShortResponseDTO> result = employeeList.stream()
+//                .map(employee -> new EmployeeShortResponseDTO(employee))
+//                .collect(Collectors.toList());
+//
+//        return new ResponseDTO<>(result, "부서별 사원 목록 조회 성공");
+//    }
+
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/api/employees/department/{departmentChangeId}")
-    public ResponseDTO<?> getEmployeeListByDepartment(@PathVariable String departmentChangeId){
-        final List<Employee> employeeList = employeeService.getEmployeeByDepartment(departmentChangeId);
+    @GetMapping("/api/employees/department/{departmentCode}")
+    public ResponseDTO<?> getEmployeeListByUpperDepartment(@PathVariable String departmentCode){
+        final List<Employee> employeeList = employeeService.getEmployeeByUpperDepartment(departmentCode);
         List<EmployeeShortResponseDTO> result = employeeList.stream()
                 .map(employee -> new EmployeeShortResponseDTO(employee))
                 .collect(Collectors.toList());
 
-        return new ResponseDTO<>(result, "부서별 사원 목록 조회 성공");
+        return new ResponseDTO<>(result, "상위부서별 사원 목록 조회 성공");
     }
 }

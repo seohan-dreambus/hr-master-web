@@ -16,4 +16,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, String>{
 
     @Query("SELECT e FROM Employee e WHERE e.department.id.departmentChangeId = :departmentChangeId")
     List<Employee> findAllByDepartment(@Param("departmentChangeId")String departmentChangeId); //부서개편ID로 목록조회
+
+    @Query("SELECT e FROM Employee e WHERE e.department.id.departmentCode = :departmentCode")
+    List<Employee> findAllByUpperDepartment(@Param("departmentCode")String departmentCode); //부서개편ID로 목록조회
 }
