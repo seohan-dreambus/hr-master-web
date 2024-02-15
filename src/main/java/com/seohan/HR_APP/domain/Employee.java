@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "HR_INFO_TB", uniqueConstraints =
-        {@UniqueConstraint(name = "UNIQUE_KEY", columnNames = {"personal_number","phone_number"})})
+        {@UniqueConstraint(name = "UNIQUE_KEY", columnNames = {"personal_number","phone_number", "home_phone_number"})})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Slf4j
@@ -137,9 +137,9 @@ public class Employee extends TimeAuditing {
 
     //생성자
     @Builder
-    public Employee(Department department, String password, String name, String englishName, String personalNumber, String phoneNumber, String homePhoneNumber, Boolean isMilitary, NationalityType nationality, Boolean isMartial, Date weddingDay, String homeAddress, String detailAddress, EmploymentType employmentType, Date joiningDate, ResignationType resignationType, Date resignationDate, String resignationReason, Integer resignationAmount, WorkLocationType workLocation, PositionType position, PositionLankType positionLank, String internalPhone, String internalEmail, Boolean isHighPerformance, Boolean isUnionMember, Boolean isOverseasAssignment) {
+    public Employee(Department department, UserAuthority userAuthority, String password, String name, String englishName, String personalNumber, String phoneNumber, String homePhoneNumber, Boolean isMilitary, NationalityType nationality, Boolean isMartial, Date weddingDay, String homeAddress, String detailAddress, EmploymentType employmentType, Date joiningDate, ResignationType resignationType, Date resignationDate, String resignationReason, Integer resignationAmount, WorkLocationType workLocation, PositionType position, PositionLankType positionLank, String internalPhone, String internalEmail, Boolean isHighPerformance, Boolean isUnionMember, Boolean isOverseasAssignment) {
         this.companyId = createCompanyId();
-        this.userAuthority = UserAuthority.ADMIN;
+        this.userAuthority = userAuthority;
         setDepartment(department);
 
         this.name = name;

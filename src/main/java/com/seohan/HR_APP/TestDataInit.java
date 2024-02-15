@@ -57,28 +57,29 @@ public class TestDataInit {
         JdbcDrepo.insertSubDepartment("202402121","D20ITM", "202402124", "D20ITM", "IT Planning Team3", "IT기획 3팀");
 
         // 나머지 부서의 하위 팀 추가
-        JdbcDrepo.insertSubDepartment("2024021211", "D20BS", "202402124", "D20BS", "Management Strategy Team1", "경영전략 1팀");
-        JdbcDrepo.insertSubDepartment("2024021211", "D20BS", "202402125", "D20BS", "Management Strategy Team2", "경영전략 2팀");
+        JdbcDrepo.insertSubDepartment("2024021211", "D20BS", "202402131", "D20BS", "Management Strategy Team1", "경영전략 1팀");
+        JdbcDrepo.insertSubDepartment("2024021211", "D20BS", "202402132", "D20BS", "Management Strategy Team2", "경영전략 2팀");
 
-        JdbcDrepo.insertSubDepartment("2024021212", "D20MK", "202402126", "D20MK", "Marketing Team1", "마케팅 1팀");
-        JdbcDrepo.insertSubDepartment("2024021212", "D20MK", "202402127", "D20MK", "Marketing Team2", "마케팅 2팀");
+        JdbcDrepo.insertSubDepartment("2024021212", "D20MK", "202402141", "D20MK", "Marketing Team1", "마케팅 1팀");
+        JdbcDrepo.insertSubDepartment("2024021212", "D20MK", "202402142", "D20MK", "Marketing Team2", "마케팅 2팀");
 
-        JdbcDrepo.insertSubDepartment("2024021213", "D20PM", "202402128", "D20PM", "Production Management Team1", "생산관리 1팀");
-        JdbcDrepo.insertSubDepartment("2024021213", "D20PM", "202402129", "D20PM", "Production Management Team2", "생산관리 2팀");
+        JdbcDrepo.insertSubDepartment("2024021213", "D20PM", "202402151", "D20PM", "Production Management Team1", "생산관리 1팀");
+        JdbcDrepo.insertSubDepartment("2024021213", "D20PM", "202402152", "D20PM", "Production Management Team2", "생산관리 2팀");
 
-        JdbcDrepo.insertSubDepartment("2024021214", "D20SL", "202402130", "D20SL", "Sales Team1", "영업 1팀");
-        JdbcDrepo.insertSubDepartment("2024021214", "D20SL", "202402131", "D20SL", "Sales Team2", "영업 2팀");
+        JdbcDrepo.insertSubDepartment("2024021214", "D20SL", "202402151", "D20SL", "Sales Team1", "영업 1팀");
+        JdbcDrepo.insertSubDepartment("2024021214", "D20SL", "202402152", "D20SL", "Sales Team2", "영업 2팀");
 
-        JdbcDrepo.insertSubDepartment("2024021215", "D20HR", "202402132", "D20HR", "HR Team1", "인사 1팀");
-        JdbcDrepo.insertSubDepartment("2024021215", "D20HR", "202402133", "D20HR", "HR Team2", "인사 2팀");
+        JdbcDrepo.insertSubDepartment("2024021215", "D20HR", "202402161", "D20HR", "HR Team1", "인사 1팀");
+        JdbcDrepo.insertSubDepartment("2024021215", "D20HR", "202402162", "D20HR", "HR Team2", "인사 2팀");
 
-        JdbcDrepo.insertSubDepartment("2024021216", "D20AC", "202402134", "D20AC", "Accounting Team1", "회계 1팀");
-        JdbcDrepo.insertSubDepartment("2024021216", "D20AC", "202402135", "D20AC", "Accounting Team2", "회계 2팀");
+        JdbcDrepo.insertSubDepartment("2024021216", "D20AC", "202402171", "D20AC", "Accounting Team1", "회계 1팀");
+        JdbcDrepo.insertSubDepartment("2024021216", "D20AC", "202402172", "D20AC", "Accounting Team2", "회계 2팀");
 
-        JdbcDrepo.insertSubDepartment("2024021217", "D20IT", "202402136", "D20IT", "IT Operations Team1", "IT운영 1팀");
-        JdbcDrepo.insertSubDepartment("2024021217", "D20IT", "202402137", "D20IT", "IT Operations Team2", "IT운영 2팀");
+        JdbcDrepo.insertSubDepartment("2024021217", "D20IT", "202402181", "D20IT", "IT Operations Team1", "IT운영 1팀");
+        JdbcDrepo.insertSubDepartment("2024021217", "D20IT", "202402182", "D20IT", "IT Operations Team2", "IT운영 2팀");
 
         Employee employee = Employee.builder()
+                .userAuthority(UserAuthority.NORMAL)
                 .password(passwordEncoder.encode("1234"))
                 .name("홍길동")
                 .englishName("Hong Gildong") // 영어 이름 예시
