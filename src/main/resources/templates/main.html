@@ -72,7 +72,6 @@
       margin-right: 10px;
       /* 제목과 내용 사이의 간격 */
       min-width: 100px;
-      border-radius: 6px;
       font-size: 15px;
       white-space: nowrap;
     }
@@ -370,8 +369,8 @@
         <div class="col-md-3">
           <div class="info-section">
             <label for="employmentType" class="info-title"><span class="required">*</span>입사 구분</label>
-            <select id="employmentType" class="info-content form-control" disabled>
-              <option selected disabled></option>
+            <select id="employmentType" class="info-content form-control">
+              <option selected disabled>선택하세요</option>
               <option value="신입">신입</option>
               <option value="경력">경력</option>
               <option value="인턴">인턴</option>
@@ -381,7 +380,7 @@
 
           <div class="info-section">
             <label for="joiningDate" class="info-title"><span class="required">*</span>입사 일자</label>
-            <input type="date" id="joiningDate" class="info-content form-control" value="" disabled>
+            <input type="date" id="joiningDate" class="info-content form-control" value="">
           </div>
           <div class="info-section">
             <label for="resignationType" class="info-title">퇴사 구분</label>
@@ -724,11 +723,18 @@
                 document.querySelectorAll(".info-title").forEach(element => {
                   element.style.backgroundColor = "#D1E8F9"; // 진한 파란색으로 변경
                   /* element.style.color = "#FFFFFF"; //글자색 변경 */
-                  var selectElement = document.getElementById('resignationType'); // 퇴사 구분 select 요소를 가져옴
+                  var selectElement = document.getElementById('resignationType'); // 퇴사 구분 select 요소를 가져옴 
                   selectElement.disabled = false; // disabled 속성을 제거 (able 상태로 변경)
-
                   var firstOptionElement = selectElement.options[0]; // 첫 번째 option 요소를 가져옴
                   firstOptionElement.innerHTML = "선택하세요"; // 첫 번째 option의 텍스트를 '선택하세요'로 변경
+
+                  var selectElement = document.getElementById('isUnionMember'); // 퇴사 구분 select 요소를 가져옴 조합원
+                  selectElement.disabled = false; // disabled 속성을 제거 (able 상태로 변경)
+
+                  var selectElement = document.getElementById('isHighPerformance'); // 퇴사 구분 select 요소를 가져옴 고과여부
+                  selectElement.disabled = false; // disabled 속성을 제거 (able 상태로 변경)
+
+
                 });
                 document.getElementById("registerButton").style.display = "none";
                 document.getElementById("modifyButton").style.display = "inline-block";
@@ -753,6 +759,12 @@
                 element.style.backgroundColor = "#E0F0FC"; // 원래의 배경색 E0F0FC D7E8F5 D1E8F9
                 /* element.style.color = "4664a6"; //글자색 변경 */
               });
+              // '조합원', '고과여부', '퇴사 구분' select 요소를 비활성화
+              document.getElementById("isUnionMember").disabled = true;
+              document.getElementById("isHighPerformance").disabled = true;
+              document.getElementById("resignationType").disabled = true;
+
+
 
               // 삭제 버튼 숨김
               document.querySelector(".btn-custom").style.display = "none";
@@ -905,7 +917,7 @@
             const requiredFieldIds = [
               'name', 'workLocation', 'positionLank', 'position', 'department', 'phoneNumber',
               'joiningDate', 'englishName', 'personalNumber', 'homeAddress', 'detailAddress',
-              'nationality', 'isMilitary', 'isUnionMember', 'isHighPerformance', 'isOverseasAssignment'
+              'nationality', 'isMilitary', 'isOverseasAssignment'
             ];
 
             // 필수 입력 필드가 비어 있는지 확인
