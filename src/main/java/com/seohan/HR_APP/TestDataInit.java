@@ -79,7 +79,7 @@ public class TestDataInit {
         JdbcDrepo.insertSubDepartment("2024021217", "D20IT", "202402182", "D20IT", "IT Operations Team2", "IT운영 2팀");
 
         Employee employee = Employee.builder()
-                .userAuthority(UserAuthority.NORMAL)
+                .userAuthority(UserAuthority.ADMIN)
                 .password(passwordEncoder.encode("1234"))
                 .name("홍길동")
                 .englishName("Hong Gildong") // 영어 이름 예시
