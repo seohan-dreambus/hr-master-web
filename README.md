@@ -1,5 +1,5 @@
 <div align="center">
-  <image src="https://capsule-render.vercel.app/api?type=waving&color=0c70f2&fontColor=FAFAFA&&height=250&section=header&text=HR%20master&fontSize=80&fontAlignY=40"></image>
+  <image src="https://capsule-render.vercel.app/api?type=waving&color=0c70f2&fontColor=FAFAFA&&height=270&section=header&text=HR%20master&fontSize=80&fontAlignY=40"></image>
   <br>
   <a href="https://drive.google.com/file/d/1J8R1Yxax8ZYgOhcxGDVBe1I-P3i_cHgM/view?usp=sharing">
     <image src="https://img.shields.io/badge/REPORT-FFD400?style=for-the-badge"/>
@@ -15,11 +15,11 @@
 
 🤓 **서한그룹 IT기획 인턴 업무**로 2024-02-01~15 수행 (총 9일, 5시간 근무)
 
-> **인사 담당자가 사용하기 편한 화면을 기획**하여, 웹으로 구현했지만 **ERP처럼 동작하도록 SPA로 개발**한 인사 마스터 시스템입니다.
+> **인사 담당자가 사용하기 편한 화면을 기획**하여, 웹으로 구현했지만 **업무 동선이 간단하도록 SPA로 개발**한 인사 마스터 시스템
 
-> 기본적인 **사원 등록/조회/수정/조회(사원번호,이름,부서로 검색)/목록 조회,삭제** 기능을 구현하였습니다.
-
-> **사내이력, 교육이력, 상벌이력 추가/조회** 기능을 구현하였습니다.
+> **구현 기능** :
+> - **로그인/로그아웃**, **사원 관리** - 등록, 조회, 수정, 조회(사원번호,이름,부서로 검색), 삭제
+> -  **이력 관리** - 사내이력 / 교육이력 / 상벌이력 추가, 조회
 
 <br>
 
@@ -54,7 +54,7 @@
 
 ## 산출 문서
 
-- [최종보고서](https://drive.google.com/file/d/1J8R1Yxax8ZYgOhcxGDVBe1I-P3i_cHgM/view?usp=sharing)
+- [최종 보고서](https://drive.google.com/file/d/1J8R1Yxax8ZYgOhcxGDVBe1I-P3i_cHgM/view?usp=sharing)
   - 요구사항 정의서, 와이어프레임
   - ERD, DDL, API 설계
   - 주요 코드 설명
@@ -65,6 +65,11 @@
 
 ## 업무 추진 일정
 ![image](https://github.com/seohan-dreambus/hr-master-web/assets/43891587/e65b58b4-6ac0-4f28-90ce-0ebc0115dfee)
+
+<br>
+
+## ERD
+![image](https://github.com/seohan-dreambus/hr-master-web/assets/43891587/277a6426-4057-45ad-b4a8-f8f9cdce131d)
 
 
 ## 와이어프레임 예시
