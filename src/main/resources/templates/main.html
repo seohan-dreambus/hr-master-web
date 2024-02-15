@@ -1168,17 +1168,6 @@
                 alert('부서별 사원 정보를 불러오는 데 실패했습니다.');
               });
           }
-
-          function openEmployeePopupAndSendData(employeesData) {
-            // 팝업 창을 'popup.html'로 명시적으로 지정하여 열고, 참조를 변수에 저장합니다.
-            const popupWindow = window.open('popup.html', 'EmployeeSearchResults', 'width=1000,height=600,scrollbars=yes');
-
-            // 팝업 창이 로드되었을 때 데이터를 전송합니다.
-            popupWindow.onload = function () {
-              // 팝업 창으로 데이터를 전송합니다.
-              popupWindow.postMessage({ employees: employeesData }, "*");
-            };
-          }
         </script>
       </div>
 </body>
