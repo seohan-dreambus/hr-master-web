@@ -429,14 +429,23 @@
                       부서별 조회
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">경영전략</a></li>
-                      <li><a class="dropdown-item" href="#">마케팅</a></li>
-                      <li><a class="dropdown-item" href="#">생산관리</a></li>
-                      <li><a class="dropdown-item" href="#">영업</a></li>
-                      <li><a class="dropdown-item" href="#">인사</a></li>
-                      <li><a class="dropdown-item" href="#">회계</a></li>
-                      <li><a class="dropdown-item" href="#">IT기획</a></li>
-                      <li><a class="dropdown-item" href="#">IT운영</a></li>
+                      <!-- data-department-code 속성에 부서 코드 추가 -->
+                      <li><a class="dropdown-item" href="#" data-department-code="D20BS"
+                          onclick="searchWithDepartment('D20BS')">경영전략</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20MK"
+                          onclick="searchWithDepartment('D20MK')">마케팅</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20PM"
+                          onclick="searchWithDepartment('D20PM')">생산관리</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20SL"
+                          onclick="searchWithDepartment('D20SL')">영업</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20HR"
+                          onclick="searchWithDepartment('D20HR')">인사</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20AC"
+                          onclick="searchWithDepartment('D20AC')">회계</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20ITM"
+                          onclick="searchWithDepartment('D20ITM')">IT기획</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20IT"
+                          onclick="searchWithDepartment('D20IT')">IT운영</a></li>
                     </ul>
                   </div>
                 </div>
@@ -517,14 +526,23 @@
                       부서별 조회
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">경영전략</a></li>
-                      <li><a class="dropdown-item" href="#">마케팅</a></li>
-                      <li><a class="dropdown-item" href="#">생산관리</a></li>
-                      <li><a class="dropdown-item" href="#">영업</a></li>
-                      <li><a class="dropdown-item" href="#">인사</a></li>
-                      <li><a class="dropdown-item" href="#">회계</a></li>
-                      <li><a class="dropdown-item" href="#">IT기획</a></li>
-                      <li><a class="dropdown-item" href="#">IT운영</a></li>
+                      <!-- data-department-code 속성에 부서 코드 추가 -->
+                      <li><a class="dropdown-item" href="#" data-department-code="D20BS"
+                          onclick="searchWithDepartment('D20BS')">경영전략</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20MK"
+                          onclick="searchWithDepartment('D20MK')">마케팅</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20PM"
+                          onclick="searchWithDepartment('D20PM')">생산관리</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20SL"
+                          onclick="searchWithDepartment('D20SL')">영업</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20HR"
+                          onclick="searchWithDepartment('D20HR')">인사</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20AC"
+                          onclick="searchWithDepartment('D20AC')">회계</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20ITM"
+                          onclick="searchWithDepartment('D20ITM')">IT기획</a></li>
+                      <li><a class="dropdown-item" href="#" data-department-code="D20IT"
+                          onclick="searchWithDepartment('D20IT')">IT운영</a></li>
                     </ul>
                   </div>
                 </div>
@@ -1092,7 +1110,7 @@
             });
           });
 
-          //팝업
+          //이름으로 팝업 띄우기
           function searchEmployeesWithName() {
             const name = document.getElementById("nameInput").value;
             if (!name.trim()) {
@@ -1130,6 +1148,37 @@
             };
           }
 
+          //부서로 팝업 띄우기
+          function searchWithDepartment(departmentCode) {
+            fetch(`/api/employees/department/${departmentCode}`, {
+              method: 'GET',
+              headers: { 'Accept': 'application/json' }
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                openEmployeePopupAndSendData(data.data); // `data.data`는 해당 부서의 사원 정보 배열
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert('부서별 사원 정보를 불러오는 데 실패했습니다.');
+              });
+          }
+
+          function openEmployeePopupAndSendData(employeesData) {
+            // 팝업 창을 'popup.html'로 명시적으로 지정하여 열고, 참조를 변수에 저장합니다.
+            const popupWindow = window.open('popup.html', 'EmployeeSearchResults', 'width=1000,height=600,scrollbars=yes');
+
+            // 팝업 창이 로드되었을 때 데이터를 전송합니다.
+            popupWindow.onload = function () {
+              // 팝업 창으로 데이터를 전송합니다.
+              popupWindow.postMessage({ employees: employeesData }, "*");
+            };
+          }
         </script>
       </div>
 </body>
