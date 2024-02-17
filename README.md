@@ -179,3 +179,7 @@
     │              main.html
     │              popup.html
 ```
+
+## 인턴 활동 사진
+
+![dreambus_photo](https://github.com/seohan-dreambus/hr-master-web/assets/43891587/9e4446e5-1a7a-4bf4-bf54-1856a4c5fccd)
